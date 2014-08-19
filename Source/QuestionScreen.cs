@@ -142,7 +142,6 @@ namespace FlashCards
 				else
 				{
 					//holla at the combat engine
-					Answered(AnsweredCorrect);
 					ExitScreen();
 				}
 			}
@@ -156,36 +155,55 @@ namespace FlashCards
 		/// </summary>
 		private void AnswerSelected(bool correctAnswer)
 		{
-			//set flags
-			AnswerChosen = true;
-			AnsweredCorrect = correctAnswer;
-
-			//play the appropriate sound effect
-			if (AnsweredCorrect)
+			if (!AnswerChosen)
 			{
-				//TODO: play "KA-CHING" sound effect
-			}
-			else
-			{
-				//TODO: play "BOI-OING" sound effect
-			}
+				//set flags
+				AnswerChosen = true;
+				AnsweredCorrect = correctAnswer;
 
-			//set all menu entries to bright red
-			foreach (var entry in MenuEntries)
-			{
-				entry.NonSelectedColor = Color.Red;
+				//play the appropriate sound effect
+				if (AnsweredCorrect)
+				{
+					//TODO: play "KA-CHING" sound effect
+				}
+				else
+				{
+					//TODO: play "BOI-OING" sound effect
+				}
+
+				//set all menu entries to bright red
+				foreach (var entry in MenuEntries)
+				{
+					entry.NonSelectedColor = Color.Red;
+				}
+
+				//...but then change the correct answer to green.
+				CorrectAnswer.NonSelectedColor = new Color(0.0f, 0.7f, 0.0f);
+
+				Answered(AnsweredCorrect);
+
+				//start the timer to exit this screen
+				_autoQuit.Start(0.5f);
 			}
-
-			//...but then change the correct answer to green.
-			CorrectAnswer.NonSelectedColor = new Color(0.0f, 0.7f, 0.0f);
-
-			//start the timer to exit this screen
-			_autoQuit.Start(0.5f);
 		}
 
 		protected override void OnCancel(PlayerIndex playerIndex)
 		{
 			//Do nothing if the user cancels a question screen
+		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+
+			ScreenManager.SpriteBatchBegin();
+
+			// Darken down any other screens that were drawn beneath the popup.
+			ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2.0f / 3.0f);
+
+			ScreenManager.SpriteBatchEnd();
+
+			base.Draw(gameTime);
 		}
 
 		#endregion //Methods

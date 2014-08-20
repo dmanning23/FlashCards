@@ -65,10 +65,33 @@ namespace FlashCards
 			List<string> wrongAnswers)
 			: base(question)
 		{
+			Init(answered, question, correctAnswer, wrongAnswers);
+		}
+
+		/// <summary>
+		/// setup a question screen from a deck of flash cards
+		/// </summary>
+		/// <param name="answered"></param>
+		/// <param name="cards"></param>
+		public QuestionScreen(AnsweredCorrectly answered, Deck cards)
+		{
+			string question, correctAnswer;
+			List<string> wrongAnswers;
+			cards.GetQuestion(_rand, out question, out correctAnswer, out wrongAnswers);
+			Init(answered, question, correctAnswer, wrongAnswers);
+		}
+
+		private void Init(AnsweredCorrectly answered, 
+			string question,
+			string correctAnswer,
+			List<string> wrongAnswers)
+		{
 			Debug.Assert(null != answered);
 			Debug.Assert(null != wrongAnswers);
 
 			MenuTitleOffset = -32.0f;
+
+			ScreenName = question;
 
 			//this screen should transition on really slow for effect
 			TransitionOnTime = TimeSpan.FromSeconds(0.5f);
@@ -87,13 +110,19 @@ namespace FlashCards
 			MenuEntries.Add(CorrectAnswer);
 
 			//Add exactly three wrong answers
-			Debug.Assert(3 == wrongAnswers.Count);
+			Debug.Assert(3 <= wrongAnswers.Count);
 			for (int i = 0; i < 3; i++)
 			{
+				//get a random wrong answer
+				int index = _rand.Next(wrongAnswers.Count);
+
 				//create a menu entry for that answer
-				var wrongMenuEntry = new MenuEntry(wrongAnswers[i]);
+				var wrongMenuEntry = new MenuEntry(wrongAnswers[index]);
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				MenuEntries.Add(wrongMenuEntry);
+
+				//remove the wrong answer from the list so it wont be added again
+				wrongAnswers.RemoveAt(index);
 			}
 
 			//shuffle the answers

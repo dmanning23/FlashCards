@@ -68,6 +68,8 @@ namespace FlashCards
 			Debug.Assert(null != answered);
 			Debug.Assert(null != wrongAnswers);
 
+			MenuTitleOffset = -32.0f;
+
 			//this screen should transition on really slow for effect
 			TransitionOnTime = TimeSpan.FromSeconds(0.5f);
 

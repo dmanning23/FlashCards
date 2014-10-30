@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using System;
-using System.Xml;
 using FilenameBuddy;
-
+using System;
+using System.Collections.Generic;
+using System.Xml;
 using XmlBuddy;
 
 namespace FlashCards

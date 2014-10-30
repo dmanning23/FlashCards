@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using ListExtensions;
-using System.Diagnostics;
-using MenuBuddy;
 using GameTimer;
-using System;
+using ListExtensions;
+using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace FlashCards
 {

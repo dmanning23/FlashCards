@@ -72,11 +72,15 @@
       <Project>{D30C7E1A-CD13-4E46-903E-72FAAD937745}</Project>
       <Name>FilenameBuddy.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TetrisRandomizer\Android\TetrisRandomizer.Android.csproj">
+      <Project>{6a07d0aa-ef37-43a8-b0fb-c2146d534ed1}</Project>
+      <Name>TetrisRandomizer.Android</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XmlBuddy\Android\XmlBuddy.Android.csproj">
       <Project>{D48251D6-C283-4FAC-A4BB-F8EB809E0B59}</Project>
       <Name>XmlBuddy.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ListExtensions\ListExtensions.Android\ListExtensions.Android.csproj">
+    <ProjectReference Include="..\..\ListExtensions\Android\ListExtensions.Android.csproj">
       <Project>{C92E571D-B01C-4A55-B07A-628C3306942A}</Project>
       <Name>ListExtensions.Android</Name>
     </ProjectReference>

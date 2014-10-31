@@ -77,7 +77,7 @@ namespace FlashCards
 		{
 			string question, correctAnswer;
 			List<string> wrongAnswers;
-			cards.GetQuestion(_rand, out question, out correctAnswer, out wrongAnswers);
+			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers);
 			Init(answered, question, correctAnswer, wrongAnswers);
 		}
 

@@ -87,6 +87,10 @@
       <Project>{e83f9eaa-eb6b-4801-8bef-c602d34ebfd3}</Project>
       <Name>MenuBuddy.Windows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TetrisRandomizer\TetrisRandomizer.Windows\TetrisRandomizer.Windows.csproj">
+      <Project>{0c00e65e-718d-4e16-9ca9-f0e9187de238}</Project>
+      <Name>TetrisRandomizer.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\XmlBuddy\Windows\XmlBuddy.Windows.csproj">
       <Project>{58b118ee-bd5d-4a5d-8ead-8c039dae553a}</Project>
       <Name>XmlBuddy.Windows</Name>

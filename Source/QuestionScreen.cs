@@ -225,8 +225,6 @@ namespace FlashCards
 
 		public override void Draw(GameTime gameTime)
 		{
-			SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-
 			ScreenManager.SpriteBatchBegin();
 
 			// Darken down any other screens that were drawn beneath the popup.

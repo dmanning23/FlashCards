@@ -39,6 +39,8 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -48,12 +50,13 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Source\Deck.cs">
@@ -72,27 +75,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Filename\Windows\Filename.Windows.csproj">
-      <Project>{2a84dfe8-75e0-4774-baaf-00629ed44405}</Project>
+      <Project>{2A84DFE8-75E0-4774-BAAF-00629ED44405}</Project>
       <Name>Filename.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\GameTimer\Windows\GameTimer.Windows.csproj">
-      <Project>{6b6d4188-5c03-4e16-923b-96fdbc85b91a}</Project>
+      <Project>{6B6D4188-5C03-4E16-923B-96FDBC85B91A}</Project>
       <Name>GameTimer.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ListExtensions\Windows\ListExtensions.Windows.csproj">
-      <Project>{afa6566b-83bd-4924-a7f1-04ddda321311}</Project>
+      <Project>{AFA6566B-83BD-4924-A7F1-04DDDA321311}</Project>
       <Name>ListExtensions.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MenuBuddy\Windows\MenuBuddy.Windows.csproj">
-      <Project>{e83f9eaa-eb6b-4801-8bef-c602d34ebfd3}</Project>
+      <Project>{E83F9EAA-EB6B-4801-8BEF-C602D34EBFD3}</Project>
       <Name>MenuBuddy.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TetrisRandomizer\Windows\TetrisRandomizer.Windows.csproj">
-      <Project>{0c00e65e-718d-4e16-9ca9-f0e9187de238}</Project>
+      <Project>{0C00E65E-718D-4E16-9CA9-F0E9187DE238}</Project>
       <Name>TetrisRandomizer.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XmlBuddy\Windows\XmlBuddy.Windows.csproj">
-      <Project>{58b118ee-bd5d-4a5d-8ead-8c039dae553a}</Project>
+      <Project>{58B118EE-BD5D-4A5D-8EAD-8C039DAE553A}</Project>
       <Name>XmlBuddy.Windows</Name>
     </ProjectReference>
   </ItemGroup>

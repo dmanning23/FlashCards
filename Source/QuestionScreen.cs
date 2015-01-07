@@ -105,7 +105,7 @@ namespace FlashCards
 			AnswerChosen = false;
 
 			//create the correct menu entry
-			CorrectAnswer = new MenuEntry(correctAnswer);
+			CorrectAnswer = new QuestionMenuEntry(correctAnswer, false, true);
 			CorrectAnswer.Selected += CorrectAnswerSelected;
 			MenuEntries.Add(CorrectAnswer);
 
@@ -117,7 +117,7 @@ namespace FlashCards
 				int index = _rand.Next(wrongAnswers.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new MenuEntry(wrongAnswers[index]);
+				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false, false);
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				MenuEntries.Add(wrongMenuEntry);
 
@@ -202,14 +202,15 @@ namespace FlashCards
 					//TODO: play "BOI-OING" sound effect
 				}
 
-				//set all menu entries to bright red
+				//Set all the colors of the answers to let the user know which was the correct answer
 				foreach (var entry in MenuEntries)
 				{
-					entry.NonSelectedColor = Color.Red;
+					var questionEntry = entry as QuestionMenuEntry;
+					if (null != questionEntry)
+					{
+						questionEntry.QuestionAnswered = true;
+					}
 				}
-
-				//...but then change the correct answer to green.
-				CorrectAnswer.NonSelectedColor = new Color(0.0f, 0.7f, 0.0f);
 
 				Answered(AnsweredCorrect);
 

@@ -65,6 +65,9 @@
     <Compile Include="..\Source\FlashCard.cs">
       <Link>FlashCard.cs</Link>
     </Compile>
+    <Compile Include="..\Source\QuestionMenuEntry.cs">
+      <Link>QuestionMenuEntry.cs</Link>
+    </Compile>
     <Compile Include="..\Source\QuestionScreen.cs">
       <Link>QuestionScreen.cs</Link>
     </Compile>

@@ -2,8 +2,8 @@ using FilenameBuddy;
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using XmlBuddy;
 using TetrisRandomizer;
+using XmlBuddy;
 
 namespace FlashCards
 {
@@ -74,6 +74,22 @@ namespace FlashCards
 					wrongAnswers.Add(Cards[i].Translation);
 				}
 			}
+		}
+
+		/// <summary>
+		/// You can read in multiple decks and add them together to do comprehension lessons.
+		/// </summary>
+		/// <param name="otherDeck">A deck of cards to add to this one</param>
+		public void AddDeck(Deck otherDeck)
+		{
+			//Add the cards
+			Cards.AddRange(otherDeck.Cards);
+
+			//Add the category
+			Category += ", " + otherDeck.Category;
+
+			//make sure the random bag will pull the new cards too
+			rand.MaxNum = Cards.Count;
 		}
 
 		#endregion //Methods

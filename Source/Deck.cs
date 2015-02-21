@@ -134,8 +134,12 @@ namespace FlashCards
 			//read it in 
 			XmlFileBuddy.ReadChildNodes(xmlNode, card.ParseChildNode);
 
-			//store the card
-			Cards.Add(card);
+			//If there was no translation in the card, don't store it
+			if (!string.IsNullOrEmpty(card.Translation))
+			{
+				//store the card
+				Cards.Add(card);
+			}
 		}
 
 		public override void WriteXmlNodes(System.Xml.XmlTextWriter xmlFile)

@@ -90,7 +90,7 @@ namespace FlashCards
 			Debug.Assert(null != wrongAnswers);
 
 			MenuTitleOffset = -32.0f;
-
+			TextSelectionRect = false;
 			ScreenName = question;
 
 			//this screen should transition on really slow for effect

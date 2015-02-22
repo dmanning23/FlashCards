@@ -43,13 +43,23 @@ namespace FlashCards
 		}
 
 		/// <summary>
-		/// construcgtor with filename
+		/// construcgtor with string
 		/// </summary>
 		/// <param name="filename"></param>
 		public Deck(string filename)
 			: this()
 		{
 			XmlFilename = new Filename(filename);
+		}
+
+		/// <summary>
+		/// construcgtor with filename
+		/// </summary>
+		/// <param name="filename"></param>
+		public Deck(Filename filename)
+			: this()
+		{
+			XmlFilename = filename;
 		}
 
 		/// <summary>

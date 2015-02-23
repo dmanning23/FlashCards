@@ -81,9 +81,17 @@
       <Project>{2A84DFE8-75E0-4774-BAAF-00629ED44405}</Project>
       <Name>Filename.Windows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\FontBuddy\Windows\FontBuddy.Windows.csproj">
+      <Project>{65b5bb5d-0c69-4ddb-8de6-f6b91c41279d}</Project>
+      <Name>FontBuddy.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GameTimer\Windows\GameTimer.Windows.csproj">
       <Project>{6B6D4188-5C03-4E16-923B-96FDBC85B91A}</Project>
       <Name>GameTimer.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HadoukInput\Windows\HadoukInput.Windows.csproj">
+      <Project>{85d723f7-83ef-4c75-82ba-9385d0ac8448}</Project>
+      <Name>HadoukInput.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ListExtensions\Windows\ListExtensions.Windows.csproj">
       <Project>{AFA6566B-83BD-4924-A7F1-04DDDA321311}</Project>

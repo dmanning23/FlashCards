@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using HadoukInput;
 
 namespace FlashCards
 {
@@ -42,7 +43,7 @@ namespace FlashCards
 		/// <summary>
 		/// the correct answer
 		/// </summary>
-		private MenuEntry CorrectAnswer { get; set; }
+		private QuestionMenuEntry CorrectAnswer { get; set; }
 
 		Random _rand = new Random();
 
@@ -107,6 +108,7 @@ namespace FlashCards
 			//create the correct menu entry
 			CorrectAnswer = new QuestionMenuEntry(correctAnswer, false, true);
 			CorrectAnswer.Selected += CorrectAnswerSelected;
+			CorrectAnswer.Selected += CorrectAnswer.OnSelected;
 			MenuEntries.Add(CorrectAnswer);
 
 			//Add exactly three wrong answers
@@ -119,6 +121,7 @@ namespace FlashCards
 				//create a menu entry for that answer
 				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false, false);
 				wrongMenuEntry.Selected += WrongAnswerSelected;
+				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;
 				MenuEntries.Add(wrongMenuEntry);
 
 				//remove the wrong answer from the list so it wont be added again
@@ -129,12 +132,24 @@ namespace FlashCards
 			MenuEntries.Shuffle(_rand);
 
 			//make the player stare at this screen for 2 seconds before they can quit
-			_autoQuit.Start(10.0f);
+			_autoQuit.Start(3.0f);
 		}
 
 		#endregion //Initialization
 
 		#region Handle Input
+
+		/// <summary>
+		/// Responds to user input, changing the selected entry and accepting
+		/// or cancelling the menu.
+		/// </summary>
+		public override void HandleInput(InputState input, GameTime rGameTime)
+		{
+			if (!AnswerChosen)
+			{
+				base.HandleInput(input, rGameTime);
+			}
+		}
 
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
@@ -215,7 +230,7 @@ namespace FlashCards
 				Answered(AnsweredCorrect);
 
 				//start the timer to exit this screen
-				_autoQuit.Start(0.5f);
+				_autoQuit.Start(0.75f);
 			}
 		}
 

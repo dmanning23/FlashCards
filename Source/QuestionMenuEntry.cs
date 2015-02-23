@@ -94,15 +94,6 @@ namespace FlashCards
 			WrongSelectedColor = Color.Red;
 		}
 
-		//protected override void DrawBackground(MenuScreen screen, Rectangle rect, byte alpha)
-		//{
-		//	//dont draw the background of an answer has been seelcted
-		//	if (!QuestionAnswered)
-		//	{
-		//		base.DrawBackground(screen, rect, alpha);
-		//	}
-		//}
-
 		/// <summary>
 		/// This method gets called when this menu entry is selected.
 		/// </summary>

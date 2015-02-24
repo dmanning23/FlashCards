@@ -90,7 +90,9 @@ namespace FlashCards
 			Debug.Assert(null != answered);
 			Debug.Assert(null != wrongAnswers);
 
-			MenuTitleOffset = -32.0f;
+			MenuTitleOffset = -150f;
+			MenuOptionOffset = new Vector2(0.0f, -85f);
+
 			TextSelectionRect = false;
 			ScreenName = question;
 
@@ -107,6 +109,7 @@ namespace FlashCards
 
 			//create the correct menu entry
 			CorrectAnswer = new QuestionMenuEntry(correctAnswer, false, true);
+			CorrectAnswer.TransitionType = MenuTransition.Bottom;
 			CorrectAnswer.Selected += CorrectAnswerSelected;
 			CorrectAnswer.Selected += CorrectAnswer.OnSelected;
 			MenuEntries.Add(CorrectAnswer);
@@ -120,6 +123,7 @@ namespace FlashCards
 
 				//create a menu entry for that answer
 				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false, false);
+				wrongMenuEntry.TransitionType = MenuTransition.Bottom;
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;
 				MenuEntries.Add(wrongMenuEntry);

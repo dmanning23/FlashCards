@@ -82,8 +82,8 @@ namespace FlashCards
 
 		#region Methods
 
-		public QuestionMenuEntry(string text, bool messageBoxEntry, bool correctAnswer)
-			: base(text, messageBoxEntry)
+		public QuestionMenuEntry(string text, bool correctAnswer)
+			: base(text)
 		{
 			_questionAnswered = false;
 			CorrectAnswer = correctAnswer;

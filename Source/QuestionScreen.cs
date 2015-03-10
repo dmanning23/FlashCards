@@ -108,7 +108,7 @@ namespace FlashCards
 			AnswerChosen = false;
 
 			//create the correct menu entry
-			CorrectAnswer = new QuestionMenuEntry(correctAnswer, false, true);
+			CorrectAnswer = new QuestionMenuEntry(correctAnswer, true);
 			CorrectAnswer.TransitionType = MenuTransition.Bottom;
 			CorrectAnswer.Selected += CorrectAnswerSelected;
 			CorrectAnswer.Selected += CorrectAnswer.OnSelected;
@@ -122,7 +122,7 @@ namespace FlashCards
 				int index = _rand.Next(wrongAnswers.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false, false);
+				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false);
 				wrongMenuEntry.TransitionType = MenuTransition.Bottom;
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;

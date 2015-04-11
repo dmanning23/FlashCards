@@ -1,7 +1,7 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-using MenuBuddy;
 using FontBuddyLib;
+using MenuBuddy;
 using Microsoft.Xna.Framework;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace FlashCards
 {
@@ -82,8 +82,8 @@ namespace FlashCards
 
 		#region Methods
 
-		public QuestionMenuEntry(string text, bool correctAnswer)
-			: base(text)
+		public QuestionMenuEntry(StyleSheet style, string text, bool correctAnswer)
+			: base(style, text)
 		{
 			_questionAnswered = false;
 			CorrectAnswer = correctAnswer;

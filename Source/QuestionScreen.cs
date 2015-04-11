@@ -22,13 +22,18 @@ namespace FlashCards
 	/// </summary>
 	public class QuestionScreen : MenuScreen
 	{
-		#region Member Variables
+		#region Properties
 
 		/// <summary>
 		/// this timer is used to automatically choose an answer
 		/// also reused to display the correct ansnwer and exit the screen
 		/// </summary>
 		private CountdownTimer _autoQuit = new CountdownTimer();
+
+		/// <summary>
+		/// method we will call when the user has answered
+		/// </summary>
+		private AnsweredCorrectly Answered { get; set; }
 
 		/// <summary>
 		/// whether or not the player got the question right
@@ -40,19 +45,18 @@ namespace FlashCards
 		/// </summary>
 		private bool AnswerChosen { get; set; }
 
+		private string CorrectAnswerText { get; set; }
+
+		private List<string> WrongAnswersText { get; set; }
+
 		/// <summary>
 		/// the correct answer
 		/// </summary>
-		private QuestionMenuEntry CorrectAnswer { get; set; }
+		private QuestionMenuEntry CorrectAnswerEntry { get; set; }
 
 		Random _rand = new Random();
 
-		/// <summary>
-		/// method we will call when the user has answered
-		/// </summary>
-		private AnsweredCorrectly Answered { get; set; }
-
-		#endregion //Member Variables
+		#endregion //Properties
 
 		#region Initialization
 
@@ -82,7 +86,7 @@ namespace FlashCards
 			Init(answered, question, correctAnswer, wrongAnswers);
 		}
 
-		private void Init(AnsweredCorrectly answered, 
+		private void Init(AnsweredCorrectly answered,
 			string question,
 			string correctAnswer,
 			List<string> wrongAnswers)
@@ -90,50 +94,64 @@ namespace FlashCards
 			Debug.Assert(null != answered);
 			Debug.Assert(null != wrongAnswers);
 
-			MenuTitleOffset = -150f;
-			MenuOptionOffset = new Vector2(0.0f, -85f);
+			MenuTitleOffset = new Point(0, -150);
+			MenuEntryOffset = new Point(0, -85);
 
-			TextSelectionRect = false;
 			ScreenName = question;
 
 			//this screen should transition on really slow for effect
-			TransitionOnTime = TimeSpan.FromSeconds(0.5f);
-
-			//no need for game to transition off when this screen is up
-			IsPopup = true;
+			Transition.OnTime = TimeSpan.FromSeconds(0.5f);
 
 			//set up the question
+			CorrectAnswerText = correctAnswer;
+			WrongAnswersText = wrongAnswers;
 			Answered = answered;
 			AnsweredCorrect = false;
 			AnswerChosen = false;
+		}
+
+		public override void LoadContent()
+		{
+			base.LoadContent();
+
+			//create a style for the question entries
+			var style = new StyleSheet(ScreenManager.Styles.MenuEntryStyle);
+			style.Transition = TransitionType.PopBottom;
+
+			//store a temp list of all the entries
+			var entries = new List<QuestionMenuEntry>();
 
 			//create the correct menu entry
-			CorrectAnswer = new QuestionMenuEntry(correctAnswer, true);
-			CorrectAnswer.TransitionType = MenuTransition.Bottom;
-			CorrectAnswer.Selected += CorrectAnswerSelected;
-			CorrectAnswer.Selected += CorrectAnswer.OnSelected;
-			MenuEntries.Add(CorrectAnswer);
+			CorrectAnswerEntry = new QuestionMenuEntry(style, CorrectAnswerText, true);
+			CorrectAnswerEntry.Selected += CorrectAnswerSelected;
+			CorrectAnswerEntry.Selected += CorrectAnswerEntry.OnSelected;
+			entries.Add(CorrectAnswerEntry);
 
 			//Add exactly three wrong answers
-			Debug.Assert(3 <= wrongAnswers.Count);
+			Debug.Assert(3 <= WrongAnswersText.Count);
 			for (int i = 0; i < 3; i++)
 			{
 				//get a random wrong answer
-				int index = _rand.Next(wrongAnswers.Count);
+				int index = _rand.Next(WrongAnswersText.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new QuestionMenuEntry(wrongAnswers[index], false);
-				wrongMenuEntry.TransitionType = MenuTransition.Bottom;
+				var wrongMenuEntry = new QuestionMenuEntry(style, WrongAnswersText[index], false);
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;
-				MenuEntries.Add(wrongMenuEntry);
+				entries.Add(wrongMenuEntry);
 
 				//remove the wrong answer from the list so it wont be added again
-				wrongAnswers.RemoveAt(index);
+				WrongAnswersText.RemoveAt(index);
 			}
 
 			//shuffle the answers
-			MenuEntries.Shuffle(_rand);
+			entries.Shuffle(_rand);
+
+			//add all the question entries to the menu
+			foreach (var entry in entries)
+			{
+				AddMenuEntry(entry);
+			}
 
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(3.0f);
@@ -143,17 +161,17 @@ namespace FlashCards
 
 		#region Handle Input
 
-		/// <summary>
-		/// Responds to user input, changing the selected entry and accepting
-		/// or cancelling the menu.
-		/// </summary>
-		public override void HandleInput(InputState input, GameTime rGameTime)
-		{
-			if (!AnswerChosen)
-			{
-				base.HandleInput(input, rGameTime);
-			}
-		}
+		///// <summary>
+		///// Responds to user input, changing the selected entry and accepting
+		///// or cancelling the menu.
+		///// </summary>
+		//public override void HandleInput(InputState input, GameTime rGameTime)
+		//{
+		//	if (!AnswerChosen)
+		//	{
+		//		base.HandleInput(input, rGameTime);
+		//	}
+		//}
 
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
@@ -222,7 +240,7 @@ namespace FlashCards
 				}
 
 				//Set all the colors of the answers to let the user know which was the correct answer
-				foreach (var entry in MenuEntries)
+				foreach (var entry in MenuEntries.Items)
 				{
 					var questionEntry = entry as QuestionMenuEntry;
 					if (null != questionEntry)
@@ -238,7 +256,7 @@ namespace FlashCards
 			}
 		}
 
-		protected override void OnCancel(PlayerIndex playerIndex)
+		public override void OnCancel(PlayerIndex? playerIndex)
 		{
 			//Do nothing if the user cancels a question screen
 		}

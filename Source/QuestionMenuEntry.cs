@@ -45,8 +45,8 @@ namespace FlashCards
 
 					//set the text to a plain vanilla font buddy
 					var font = new FontBuddy();
-					font.Font = UnselectedFont.Font;
-					UnselectedFont = font;
+					font.Font = Style.SelectedFont.Font;
+					Style.SelectedFont = font;
 				}
 			}
 		}
@@ -72,11 +72,9 @@ namespace FlashCards
 		private Color WrongSelectedColor { get; set; }
 
 		/// <summary>
-		/// After 
+		/// After an answer is selected, this will be the final color of this item
 		/// </summary>
 		private Color QuestionAnsweredColor { get; set; }
-
-		//TODO: use pulsate for correct answer and BouncyFontBuddy for wrong
 
 		#endregion //Properties
 
@@ -109,8 +107,8 @@ namespace FlashCards
 				//Set the font buddy to shaky text
 				var text = new PulsateBuddy();
 				text.PulsateSize = 2.0f;
-				text.Font = UnselectedFont.Font;
-				UnselectedFont = text;
+				text.Font = Style.SelectedFont.Font;
+				Style.SelectedFont = text;
 			}
 			else
 			{
@@ -118,29 +116,12 @@ namespace FlashCards
 
 				//Set the font buddy to "wrong" text
 				var text = new WrongTextBuddy();
-				text.Font = UnselectedFont.Font;
-				UnselectedFont = text;
+				text.Font = Style.SelectedFont.Font;
+				Style.SelectedFont = text;
 			}
-		}
 
-		protected override void GetTextColors(MenuScreen screen, bool isSelected, byte alpha, out Color color, out Color backgroundColor)
-		{
-			base.GetTextColors(screen, isSelected, alpha, out color, out backgroundColor);
-
-			//if the question has been answered, use the answer color
-			if (QuestionAnswered)
-			{
-				color = QuestionAnsweredColor;
-
-				if (CorrectAnswer)
-				{
-					int i = 0;
-				}
-
-				//set the alpha color too
-				float fAlpha = (color.A / 255.0f);
-				color.A = (byte)(alpha * fAlpha);
-			}
+			//set the text color
+			Style.SelectedTextColor = QuestionAnsweredColor;
 		}
 
 		#endregion //Methods

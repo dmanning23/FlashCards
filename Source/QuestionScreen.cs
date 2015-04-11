@@ -94,9 +94,6 @@ namespace FlashCards
 			Debug.Assert(null != answered);
 			Debug.Assert(null != wrongAnswers);
 
-			MenuTitleOffset = new Point(0, -150);
-			MenuEntryOffset = new Point(0, -85);
-
 			ScreenName = question;
 
 			//this screen should transition on really slow for effect

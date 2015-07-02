@@ -80,8 +80,8 @@ namespace FlashCards
 
 		#region Methods
 
-		public QuestionMenuEntry(StyleSheet style, string text, bool correctAnswer)
-			: base(style, text)
+		public QuestionMenuEntry(string text, bool correctAnswer)
+			: base(text)
 		{
 			_questionAnswered = false;
 			CorrectAnswer = correctAnswer;

@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using HadoukInput;
 
 namespace FlashCards
 {
@@ -111,15 +110,12 @@ namespace FlashCards
 		{
 			base.LoadContent();
 
-			//create a style for the question entries
-			var style = new StyleSheet(ScreenManager.Styles.MenuEntryStyle);
-			style.Transition = TransitionType.PopBottom;
-
 			//store a temp list of all the entries
 			var entries = new List<QuestionMenuEntry>();
 
 			//create the correct menu entry
-			CorrectAnswerEntry = new QuestionMenuEntry(style, CorrectAnswerText, true);
+			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true);
+			CorrectAnswerEntry.Style.Transition = TransitionType.PopBottom;
 			CorrectAnswerEntry.Selected += CorrectAnswerSelected;
 			CorrectAnswerEntry.Selected += CorrectAnswerEntry.OnSelected;
 			entries.Add(CorrectAnswerEntry);
@@ -132,7 +128,8 @@ namespace FlashCards
 				int index = _rand.Next(WrongAnswersText.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new QuestionMenuEntry(style, WrongAnswersText[index], false);
+				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false);
+				wrongMenuEntry.Style.Transition = TransitionType.PopBottom;
 				wrongMenuEntry.Selected += WrongAnswerSelected;
 				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;
 				entries.Add(wrongMenuEntry);

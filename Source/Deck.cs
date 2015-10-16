@@ -49,7 +49,7 @@ namespace FlashCards
 		public Deck(string filename)
 			: this()
 		{
-			XmlFilename = new Filename(filename);
+			Filename = new Filename(filename);
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace FlashCards
 		public Deck(Filename filename)
 			: this()
 		{
-			XmlFilename = filename;
+			Filename = filename;
 		}
 
 		/// <summary>

@@ -1,7 +1,6 @@
 using FontBuddyLib;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace FlashCards
 {
@@ -97,7 +96,7 @@ namespace FlashCards
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <param name="e"></param>
-		public void OnSelected(object obj, PlayerIndexEventArgs e)
+		public void OnSelected(object obj, SelectedEventArgs e)
 		{
 			//Set the display color to the correct 
 			if (CorrectAnswer)

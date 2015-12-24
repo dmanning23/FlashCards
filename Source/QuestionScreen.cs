@@ -2,7 +2,6 @@ using GameTimer;
 using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -116,8 +115,8 @@ namespace FlashCards
 			//create the correct menu entry
 			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true);
 			CorrectAnswerEntry.Style.Transition = TransitionType.PopBottom;
-			CorrectAnswerEntry.Selected += CorrectAnswerSelected;
-			CorrectAnswerEntry.Selected += CorrectAnswerEntry.OnSelected;
+			CorrectAnswerEntry.OnSelect += CorrectAnswerSelected;
+			CorrectAnswerEntry.OnSelect += CorrectAnswerEntry.OnSelected;
 			entries.Add(CorrectAnswerEntry);
 
 			//Add exactly three wrong answers
@@ -130,8 +129,8 @@ namespace FlashCards
 				//create a menu entry for that answer
 				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false);
 				wrongMenuEntry.Style.Transition = TransitionType.PopBottom;
-				wrongMenuEntry.Selected += WrongAnswerSelected;
-				wrongMenuEntry.Selected += wrongMenuEntry.OnSelected;
+				wrongMenuEntry.OnSelect += WrongAnswerSelected;
+				wrongMenuEntry.OnSelect += wrongMenuEntry.OnSelected;
 				entries.Add(wrongMenuEntry);
 
 				//remove the wrong answer from the list so it wont be added again
@@ -155,22 +154,10 @@ namespace FlashCards
 
 		#region Handle Input
 
-		///// <summary>
-		///// Responds to user input, changing the selected entry and accepting
-		///// or cancelling the menu.
-		///// </summary>
-		//public override void HandleInput(InputState input, GameTime rGameTime)
-		//{
-		//	if (!AnswerChosen)
-		//	{
-		//		base.HandleInput(input, rGameTime);
-		//	}
-		//}
-
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
 		/// </summary>
-		private void CorrectAnswerSelected(object sender, PlayerIndexEventArgs e)
+		private void CorrectAnswerSelected(object sender, SelectedEventArgs e)
 		{
 			AnswerSelected(true);
 		}
@@ -178,7 +165,7 @@ namespace FlashCards
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
 		/// </summary>
-		private void WrongAnswerSelected(object sender, PlayerIndexEventArgs e)
+		private void WrongAnswerSelected(object sender, SelectedEventArgs e)
 		{
 			AnswerSelected(false);
 		}
@@ -250,7 +237,7 @@ namespace FlashCards
 			}
 		}
 
-		public override void OnCancel(PlayerIndex? playerIndex)
+		public override void Cancelled(object obj, SelectedEventArgs e)
 		{
 			//Do nothing if the user cancels a question screen
 		}

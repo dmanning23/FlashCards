@@ -1,4 +1,5 @@
 using FontBuddyLib;
+using InputHelper;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 
@@ -11,69 +12,22 @@ namespace FlashCards
 	{
 		#region Fields
 
-		private bool _questionAnswered;
+		private QuestionLabel _label;
 
 		#endregion //Fields
 
 		#region Properties
 
 		/// <summary>
-		/// Whether or not the question has been answered.
-		/// If this is false, will use the default colors & fonts
-		/// if true, will use teh provied colors & fonts
+		/// Whether or not this is the corerct answer to the question
 		/// </summary>
 		public bool QuestionAnswered
 		{
-			get 
-			{
-				return _questionAnswered; 
-			}
 			set
 			{
-				//set that flag
-				_questionAnswered = value;
-
-				//set the color based on whether or not this is the correct answer
-				if (CorrectAnswer)
-				{
-					QuestionAnsweredColor = CorrectColor;
-				}
-				else
-				{
-					QuestionAnsweredColor = WrongNotSelectedColor;
-
-					//set the text to a plain vanilla font buddy
-					var font = new FontBuddy();
-					font.Font = Style.SelectedFont.Font;
-					Style.SelectedFont = font;
-				}
+				_label.QuestionAnswered = value;
 			}
 		}
-
-		/// <summary>
-		/// Whether or not this is the corerct answer to the question
-		/// </summary>
-		private bool CorrectAnswer { get; set; }
-
-		/// <summary>
-		/// if this is the correct answer, this is the color that will be displayed after a selection is made
-		/// </summary>
-		private Color CorrectColor { get; set; }
-
-		/// <summary>
-		/// If this is the wrong answer but not selected, this is the color that will be used
-		/// </summary>
-		private Color WrongNotSelectedColor { get; set; }
-
-		/// <summary>
-		/// if this is the wrong answer and is selected, this is the color
-		/// </summary>
-		private Color WrongSelectedColor { get; set; }
-
-		/// <summary>
-		/// After an answer is selected, this will be the final color of this item
-		/// </summary>
-		private Color QuestionAnsweredColor { get; set; }
 
 		#endregion //Properties
 
@@ -82,45 +36,9 @@ namespace FlashCards
 		public QuestionMenuEntry(string text, bool correctAnswer)
 			: base(text)
 		{
-			_questionAnswered = false;
-			CorrectAnswer = correctAnswer;
+			_label = new QuestionLabel(correctAnswer, text);
 
-			//Set the colors
-			CorrectColor = new Color(0.0f, 0.7f, 0.0f);
-			WrongNotSelectedColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-			WrongSelectedColor = Color.Red;
-		}
-
-		/// <summary>
-		/// This method gets called when this menu entry is selected.
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <param name="e"></param>
-		public void OnSelected(object obj, SelectedEventArgs e)
-		{
-			//Set the display color to the correct 
-			if (CorrectAnswer)
-			{
-				QuestionAnsweredColor = CorrectColor;
-				
-				//Set the font buddy to shaky text
-				var text = new PulsateBuddy();
-				text.PulsateSize = 2.0f;
-				text.Font = Style.SelectedFont.Font;
-				Style.SelectedFont = text;
-			}
-			else
-			{
-				QuestionAnsweredColor = WrongSelectedColor;
-
-				//Set the font buddy to "wrong" text
-				var text = new WrongTextBuddy();
-				text.Font = Style.SelectedFont.Font;
-				Style.SelectedFont = text;
-			}
-
-			//set the text color
-			Style.SelectedTextColor = QuestionAnsweredColor;
+			OnClick += _label.OnAnswer;
 		}
 
 		#endregion //Methods

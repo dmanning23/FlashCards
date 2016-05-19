@@ -1,4 +1,5 @@
 using GameTimer;
+using InputHelper;
 using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
@@ -95,7 +96,7 @@ namespace FlashCards
 			ScreenName = question;
 
 			//this screen should transition on really slow for effect
-			Transition.OnTime = TimeSpan.FromSeconds(0.5f);
+			Transition.OnTime = 0.5f;
 
 			//set up the question
 			CorrectAnswerText = correctAnswer;
@@ -113,10 +114,11 @@ namespace FlashCards
 			var entries = new List<QuestionMenuEntry>();
 
 			//create the correct menu entry
-			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true);
-			CorrectAnswerEntry.Style.Transition = TransitionType.PopBottom;
-			CorrectAnswerEntry.OnSelect += CorrectAnswerSelected;
-			CorrectAnswerEntry.OnSelect += CorrectAnswerEntry.OnSelected;
+			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true)
+			{
+				Transition = new WipeTransitionObject(TransitionWipeType.PopBottom)
+			};
+			CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
 			entries.Add(CorrectAnswerEntry);
 
 			//Add exactly three wrong answers
@@ -127,10 +129,11 @@ namespace FlashCards
 				int index = _rand.Next(WrongAnswersText.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false);
-				wrongMenuEntry.Style.Transition = TransitionType.PopBottom;
-				wrongMenuEntry.OnSelect += WrongAnswerSelected;
-				wrongMenuEntry.OnSelect += wrongMenuEntry.OnSelected;
+				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false)
+				{
+					Transition = new WipeTransitionObject(TransitionWipeType.PopBottom)
+				};
+				wrongMenuEntry.OnClick += WrongAnswerSelected;
 				entries.Add(wrongMenuEntry);
 
 				//remove the wrong answer from the list so it wont be added again
@@ -157,7 +160,7 @@ namespace FlashCards
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
 		/// </summary>
-		private void CorrectAnswerSelected(object sender, SelectedEventArgs e)
+		private void CorrectAnswerSelected(object sender, ClickEventArgs e)
 		{
 			AnswerSelected(true);
 		}
@@ -165,7 +168,7 @@ namespace FlashCards
 		/// <summary>
 		/// Event handler for when the High Scores menu entry is selected.
 		/// </summary>
-		private void WrongAnswerSelected(object sender, SelectedEventArgs e)
+		private void WrongAnswerSelected(object sender, ClickEventArgs e)
 		{
 			AnswerSelected(false);
 		}
@@ -237,7 +240,7 @@ namespace FlashCards
 			}
 		}
 
-		public override void Cancelled(object obj, SelectedEventArgs e)
+		public override void Cancelled(object obj, ClickEventArgs e)
 		{
 			//Do nothing if the user cancels a question screen
 		}

@@ -152,6 +152,11 @@ namespace FlashCards
 			}
 		}
 
+#if NETFX_CORE
+		public override void WriteXmlNodes()
+		{
+		}
+#else
 		public override void WriteXmlNodes(System.Xml.XmlTextWriter xmlFile)
 		{
 			xmlFile.WriteStartElement("Category");
@@ -166,6 +171,7 @@ namespace FlashCards
 			}
 			xmlFile.WriteEndElement();
 		}
+#endif
 
 		#endregion //File Parsing
 	}

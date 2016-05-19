@@ -56,6 +56,11 @@ namespace FlashCards
 			}
 		}
 
+#if NETFX_CORE
+		public void WriteXmlNodes()
+		{
+		}
+#else
 		public void WriteXmlNodes(XmlTextWriter xmlFile)
 		{
 			xmlFile.WriteStartElement("Item");
@@ -70,6 +75,7 @@ namespace FlashCards
 
 			xmlFile.WriteEndElement();
 		}
+#endif
 
 		#endregion //Methods
 	}

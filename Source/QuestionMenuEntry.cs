@@ -29,6 +29,8 @@ namespace FlashCards
 			}
 		}
 
+		private bool CorrectAnswer { get; set; }
+
 		#endregion //Properties
 
 		#region Methods
@@ -36,9 +38,25 @@ namespace FlashCards
 		public QuestionMenuEntry(string text, bool correctAnswer)
 			: base(text)
 		{
-			_label = new QuestionLabel(correctAnswer, text);
+			CorrectAnswer = correctAnswer;
+			Label = CreateLabel();
+		}
 
+		public override void LoadContent(IScreen screen)
+		{
+			base.LoadContent(screen);
+
+			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;
+		}
+
+		protected override Label CreateLabel()
+		{
+			return new QuestionLabel(CorrectAnswer, Text)
+			{
+				Vertical = VerticalAlignment.Top,
+				Horizontal = HorizontalAlignment.Center
+			};
 		}
 
 		#endregion //Methods

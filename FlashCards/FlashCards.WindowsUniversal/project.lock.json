@@ -107,7 +107,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -418,7 +418,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -2155,7 +2155,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -2310,7 +2310,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -2570,7 +2570,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -4224,7 +4224,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -4379,7 +4379,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -4637,7 +4637,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -6250,7 +6250,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -6405,7 +6405,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -6671,7 +6671,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -8328,7 +8328,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -8483,7 +8483,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -8741,7 +8741,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -10354,7 +10354,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -10509,7 +10509,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -10775,7 +10775,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -12432,7 +12432,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -12587,7 +12587,7 @@
           "lib/uap10.0/MatrixExtensions.WindowsUniversal.dll": {}
         }
       },
-      "MenuBuddy/1.0.12": {
+      "MenuBuddy/1.0.15": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -12845,7 +12845,7 @@
           "lib/netcore/MonoGame.Framework.dll": {}
         }
       },
-      "MouseBuddy/1.0.5": {
+      "MouseBuddy/1.0.6": {
         "type": "package",
         "dependencies": {
           "FilenameBuddy": "1.0.1",
@@ -14458,7 +14458,7 @@
           "lib/uap10.0/TetrisRandomizer.WindowsUniversal.dll": {}
         }
       },
-      "TouchScreenBuddy/1.0.4": {
+      "TouchScreenBuddy/1.0.5": {
         "type": "package",
         "dependencies": {
           "InputHelper": "1.0.0",
@@ -14622,11 +14622,11 @@
         "lib/uap10.0/MatrixExtensions.WindowsUniversal.pdb"
       ]
     },
-    "MenuBuddy/1.0.12": {
-      "sha512": "yqnPYGczczYI+6WDpI1SThniWiMQPtlSKvbAjtsXNaJXhLkPKD6ill2uauv9HvVLZPN5ox8nl6lNjMyKnjF81g==",
+    "MenuBuddy/1.0.15": {
+      "sha512": "0FxhztMP+skOu1SIQf2arzCptkTCqf6dmmdLG5er4wMEDIL059MT9Z2FQPfKGNdIrLn85JbiZJRw8FC1G+zXhA==",
       "type": "package",
       "files": [
-        "MenuBuddy.1.0.12.nupkg.sha512",
+        "MenuBuddy.1.0.15.nupkg.sha512",
         "MenuBuddy.nuspec",
         "lib/MonoAndroid10/MenuBuddy.Android.dll",
         "lib/MonoAndroid10/MenuBuddy.Android.pdb",
@@ -15242,11 +15242,11 @@
         "readme.txt"
       ]
     },
-    "MouseBuddy/1.0.5": {
-      "sha512": "LBzb335xPeH1PAFlAYqzpkFjBXJWTO2VFe7nXn1kSiCXStNIKlYzw4umPBE5J5+ZXXr1Hlvrk3jp5Whb8wW5aw==",
+    "MouseBuddy/1.0.6": {
+      "sha512": "Gmqj5zyvbkNv4lnqkwStkvOqAVpe2sZDHQ9u1weJVblymMhFdPQIXrDoNwOj4Eeb8feQMbtnOkuBcBo0P/72eg==",
       "type": "package",
       "files": [
-        "MouseBuddy.1.0.5.nupkg.sha512",
+        "MouseBuddy.1.0.6.nupkg.sha512",
         "MouseBuddy.nuspec",
         "lib/MonoAndroid10/MouseBuddy.Android.dll",
         "lib/MonoAndroid10/MouseBuddy.Android.pdb",
@@ -18068,11 +18068,11 @@
         "lib/uap10.0/TetrisRandomizer.WindowsUniversal.pdb"
       ]
     },
-    "TouchScreenBuddy/1.0.4": {
-      "sha512": "zdZmWaZfSwPkvQNYyFdfJoccHMw5nciUZlly5UL9hIG4Eo3ab7IJ+aU7dp5gxnzjfSQ+e85HlXDUI/ppQ/IQ5Q==",
+    "TouchScreenBuddy/1.0.5": {
+      "sha512": "9ksnlyEG7fIzDhdNr6/ldIFACUsNxCm9Kh8KR6XKvMmYwhLzVj3GcwpNU4A1X4hsn6KFBXovAiMOrrL7bW9SZw==",
       "type": "package",
       "files": [
-        "TouchScreenBuddy.1.0.4.nupkg.sha512",
+        "TouchScreenBuddy.1.0.5.nupkg.sha512",
         "TouchScreenBuddy.nuspec",
         "lib/MonoAndroid10/TouchScreenBuddy.Android.dll",
         "lib/MonoAndroid10/TouchScreenBuddy.Android.pdb",
@@ -18126,16 +18126,16 @@
       "InputHelper >= 1.0.15",
       "ListExtensions >= 1.0.0",
       "MatrixExtensions >= 1.0.1",
-      "MenuBuddy >= 1.0.12",
+      "MenuBuddy >= 1.0.15",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.1.0",
       "MonoGame.Framework.WindowsUniversal >= 3.5.1.1679",
-      "MouseBuddy >= 1.0.5",
+      "MouseBuddy >= 1.0.6",
       "PrimitiveBuddy >= 1.0.0",
       "RandomExtensions.dmanning23 >= 1.0.2",
       "ResolutionBuddy >= 1.0.2",
       "StateMachineBuddy >= 1.0.0",
       "TetrisRandomizer >= 1.0.0",
-      "TouchScreenBuddy >= 1.0.4",
+      "TouchScreenBuddy >= 1.0.5",
       "Vector2Extensions >= 1.0.1",
       "XmlBuddy >= 1.0.2"
     ],

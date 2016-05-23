@@ -116,7 +116,7 @@ namespace FlashCards
 			//create the correct menu entry
 			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true)
 			{
-				Transition = new WipeTransitionObject(TransitionWipeType.PopBottom)
+				Transition = new WipeTransitionObject(TransitionWipeType.PopBottom),
 			};
 			CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
 			entries.Add(CorrectAnswerEntry);

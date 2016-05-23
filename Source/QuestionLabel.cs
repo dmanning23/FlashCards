@@ -46,19 +46,19 @@ namespace FlashCards
 		private Color CorrectColor { get; set; }
 
 		/// <summary>
+		/// if this is the wrong answer and is selected, this is the color
+		/// </summary>
+		private Color WrongColor { get; set; }
+
+		/// <summary>
+		/// if this is the correct answer but not selected, this is the color that will be used
+		/// </summary>
+		private Color CorrectNotSelectedColor { get; set; }
+
+		/// <summary>
 		/// If this is the wrong answer but not selected, this is the color that will be used
 		/// </summary>
 		private Color WrongNotSelectedColor { get; set; }
-
-		/// <summary>
-		/// if this is the wrong answer and is selected, this is the color
-		/// </summary>
-		private Color WrongSelectedColor { get; set; }
-
-		/// <summary>
-		/// After an answer is selected, this will be the final color of this item
-		/// </summary>
-		private Color QuestionAnsweredColor { get; set; }
 
 		/// <summary>
 		/// Whether or not the question has been answered.
@@ -79,11 +79,11 @@ namespace FlashCards
 				//set the color based on whether or not this is the correct answer
 				if (IsCorrectAnswer)
 				{
-					QuestionAnsweredColor = CorrectColor;
+					CurrentColor = CorrectNotSelectedColor;
 				}
 				else
 				{
-					QuestionAnsweredColor = WrongNotSelectedColor;
+					CurrentColor = WrongNotSelectedColor;
 
 					//set the text to a plain vanilla font buddy
 					var font = new FontBuddy()
@@ -112,8 +112,9 @@ namespace FlashCards
 
 			//Set the colors
 			CorrectColor = new Color(0.0f, 0.7f, 0.0f);
+			WrongColor = Color.Red;
 			WrongNotSelectedColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-			WrongSelectedColor = Color.Red;
+			CorrectNotSelectedColor = new Color(0.0f, 0.7f, 0.0f, 0.5f);
 
 			//set the current stuff
 			CurrentColor = base.GetColor();
@@ -130,26 +131,23 @@ namespace FlashCards
 			//Set the display color to the correct 
 			if (IsCorrectAnswer)
 			{
-				QuestionAnsweredColor = CorrectColor;
-				
 				//Set the font buddy to shaky text
 				var text = new PulsateBuddy();
 				text.PulsateSize = 2.0f;
 				text.Font = FontBuddy.Font;
 				FontBuddy = text;
+
+				CurrentColor = CorrectColor;
 			}
 			else
 			{
-				QuestionAnsweredColor = WrongSelectedColor;
-
 				//Set the font buddy to "wrong" text
 				var text = new WrongTextBuddy();
 				text.Font = FontBuddy.Font;
 				FontBuddy = text;
-			}
 
-			//set the text color
-			CurrentColor = QuestionAnsweredColor;
+				CurrentColor = WrongColor;
+			}
 		}
 
 		protected override IFontBuddy GetFont()

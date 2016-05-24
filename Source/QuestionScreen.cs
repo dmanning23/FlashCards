@@ -245,18 +245,6 @@ namespace FlashCards
 			//Do nothing if the user cancels a question screen
 		}
 
-		public override void Draw(GameTime gameTime)
-		{
-			ScreenManager.SpriteBatchBegin();
-
-			// Darken down any other screens that were drawn beneath the popup.
-			FadeBackground();
-
-			ScreenManager.SpriteBatchEnd();
-
-			base.Draw(gameTime);
-		}
-
 		#endregion //Methods
 	}
 }

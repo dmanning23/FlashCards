@@ -1,7 +1,4 @@
-using FontBuddyLib;
-using InputHelper;
 using MenuBuddy;
-using Microsoft.Xna.Framework;
 
 namespace FlashCards
 {

@@ -183,18 +183,21 @@ namespace FlashCards
 			_autoQuit.Update(gameTime);
 
 			//check if we been here long enough
-			if (0.0f >= _autoQuit.RemainingTime())
+			if (IsActive)
 			{
-				//has the user picked an answer?
-				if (!AnswerChosen)
+				if (0.0f >= _autoQuit.RemainingTime())
 				{
-					//the timer ran out but the user hadn't picked an answer.  That counts as "wrong"
-					AnswerSelected(false);
-				}
-				else
-				{
-					//holla at the combat engine
-					ExitScreen();
+					//has the user picked an answer?
+					if (!AnswerChosen)
+					{
+						//the timer ran out but the user hadn't picked an answer.  That counts as "wrong"
+						AnswerSelected(false);
+					}
+					else
+					{
+						//holla at the combat engine
+						ExitScreen();
+					}
 				}
 			}
 

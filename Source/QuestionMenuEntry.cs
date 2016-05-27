@@ -23,6 +23,12 @@ namespace FlashCards
 			set
 			{
 				_label.QuestionAnswered = value;
+
+				if (value)
+				{
+					//Don't play any more sounds once an item has been selected
+					IsQuiet = true;
+				}
 			}
 		}
 
@@ -37,11 +43,6 @@ namespace FlashCards
 		{
 			CorrectAnswer = correctAnswer;
 			Label = CreateLabel();
-		}
-
-		public override void LoadContent(IScreen screen)
-		{
-			base.LoadContent(screen);
 
 			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;

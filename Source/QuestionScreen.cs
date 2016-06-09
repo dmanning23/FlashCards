@@ -21,13 +21,21 @@ namespace FlashCards
 	/// </summary>
 	public class QuestionScreen : MenuScreen
 	{
-		#region Properties
+		#region Fields
 
 		/// <summary>
 		/// this timer is used to automatically choose an answer
 		/// also reused to display the correct ansnwer and exit the screen
 		/// </summary>
 		private CountdownTimer _autoQuit = new CountdownTimer();
+
+		private Random _rand = new Random();
+
+		private float _questionTime = 5f;
+
+		#endregion //Fields
+
+		#region Properties
 
 		/// <summary>
 		/// method we will call when the user has answered
@@ -53,7 +61,20 @@ namespace FlashCards
 		/// </summary>
 		private QuestionMenuEntry CorrectAnswerEntry { get; set; }
 
-		Random _rand = new Random();
+		/// <summary>
+		/// How long the user has to answer a question before it is automatically marked as "wrong"
+		/// </summary>
+		public float QuestionTime
+		{
+			get
+			{
+				return _questionTime;
+			}
+			set
+			{
+				_questionTime = value;
+			}
+		}
 
 		#endregion //Properties
 
@@ -150,7 +171,7 @@ namespace FlashCards
 			}
 
 			//make the player stare at this screen for 2 seconds before they can quit
-			_autoQuit.Start(3.0f);
+			_autoQuit.Start(QuestionTime);
 		}
 
 		#endregion //Initialization

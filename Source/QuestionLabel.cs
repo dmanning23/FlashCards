@@ -143,19 +143,21 @@ namespace FlashCards
 				if (IsCorrectAnswer)
 				{
 					//Set the font buddy to shaky text
-					var text = new PulsateBuddy();
-					text.PulsateSize = 2.0f;
-					text.Font = FontBuddy.Font;
-					FontBuddy = text;
+					FontBuddy = new PulsateBuddy()
+					{
+						PulsateSize = 2.0f,
+						Font = FontBuddy.Font
+					};
 
 					CurrentColor = CorrectColor;
 				}
 				else
 				{
 					//Set the font buddy to "wrong" text
-					var text = new WrongTextBuddy();
-					text.Font = FontBuddy.Font;
-					FontBuddy = text;
+					FontBuddy = new WrongTextBuddy()
+					{
+						Font = FontBuddy.Font
+					};
 
 					CurrentColor = WrongColor;
 				}

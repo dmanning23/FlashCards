@@ -46,6 +46,7 @@ namespace FlashCards
 
 			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;
+			Highlightable = false;
 		}
 
 		protected override Label CreateLabel()

@@ -47,6 +47,8 @@ namespace FlashCards
 			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;
 			Highlightable = false;
+
+			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 		}
 
 		protected override Label CreateLabel()

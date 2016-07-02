@@ -72,8 +72,8 @@ namespace FlashCards
 		{
 			//grab a random flash card to be the question
 			int index = rand.Next();
-			question = Cards[index].Word;
-			correctAnswer = Cards[index].Translation;
+			question = Cards[index].Translation;
+			correctAnswer = Cards[index].Word;
 
 			//add all the possible incorrect answers
 			wrongAnswers = new List<string>();
@@ -81,7 +81,7 @@ namespace FlashCards
 			{
 				if (index != i)
 				{
-					wrongAnswers.Add(Cards[i].Translation);
+					wrongAnswers.Add(Cards[i].Word);
 				}
 			}
 		}
@@ -145,7 +145,7 @@ namespace FlashCards
 			XmlFileBuddy.ReadChildNodes(xmlNode, card.ParseChildNode);
 
 			//If there was no translation in the card, don't store it
-			if (!string.IsNullOrEmpty(card.Translation))
+			if (!string.IsNullOrEmpty(card.Translation) && !string.IsNullOrEmpty(card.Word))
 			{
 				//store the card
 				Cards.Add(card);

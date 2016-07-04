@@ -3,6 +3,7 @@ using InputHelper;
 using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,6 +76,8 @@ namespace FlashCards
 				_questionTime = value;
 			}
 		}
+
+		private SoundEffect WrongAnswerSound { get; set; }
 
 		#endregion //Properties
 
@@ -170,6 +173,9 @@ namespace FlashCards
 				AddMenuEntry(entry);
 			}
 
+			//load the sound effect to play when time runs out on a question
+			WrongAnswerSound = ScreenManager.Game.Content.Load<SoundEffect>("WrongAnswer");
+
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(QuestionTime);
 		}
@@ -213,6 +219,9 @@ namespace FlashCards
 					{
 						//the timer ran out but the user hadn't picked an answer.  That counts as "wrong"
 						AnswerSelected(false);
+
+						//play the "wrong" sound effect
+						WrongAnswerSound.Play();
 					}
 					else
 					{
@@ -236,16 +245,6 @@ namespace FlashCards
 				//set flags
 				AnswerChosen = true;
 				AnsweredCorrect = correctAnswer;
-
-				//play the appropriate sound effect
-				if (AnsweredCorrect)
-				{
-					//TODO: play "KA-CHING" sound effect
-				}
-				else
-				{
-					//TODO: play "BOI-OING" sound effect
-				}
 
 				//Set all the colors of the answers to let the user know which was the correct answer
 				foreach (var entry in MenuEntries.Items)

@@ -48,6 +48,7 @@ namespace FlashCards
 			OnClick += _label.OnAnswer;
 			Highlightable = false;
 
+			//Setting the resource name here will cause the correct sound effect to be loaded an played when this button is clicked
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 		}
 

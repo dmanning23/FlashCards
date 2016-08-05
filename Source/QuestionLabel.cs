@@ -145,7 +145,8 @@ namespace FlashCards
 					//Set the font buddy to shaky text
 					FontBuddy = new PulsateBuddy()
 					{
-						PulsateSize = 2.0f,
+						PulsateSize = 4.0f,
+						PulsateSpeed = 12.0f,
 						Font = FontBuddy.Font
 					};
 

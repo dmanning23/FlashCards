@@ -152,11 +152,7 @@ namespace FlashCards
 			}
 		}
 
-#if NETFX_CORE
-		public override void WriteXmlNodes()
-		{
-		}
-#else
+#if !NETFX_CORE
 		public override void WriteXmlNodes(System.Xml.XmlTextWriter xmlFile)
 		{
 			xmlFile.WriteStartElement("Category");

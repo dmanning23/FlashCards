@@ -36,11 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FilenameBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FilenameBuddy.1.0.2\lib\MonoAndroid10\FilenameBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\FilenameBuddy.1.0.3\lib\MonoAndroid10\FilenameBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FontBuddyLib.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FontBuddy.1.0.8\lib\MonoAndroid10\FontBuddyLib.Android.dll</HintPath>
+      <HintPath>..\packages\FontBuddy.1.0.11\lib\MonoAndroid10\FontBuddyLib.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="GameTimer.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -48,11 +48,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="HadoukInput.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HadoukInput.1.0.2\lib\MonoAndroid10\HadoukInput.Android.dll</HintPath>
+      <HintPath>..\packages\HadoukInput.1.0.4\lib\MonoAndroid10\HadoukInput.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="InputHelper.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\InputHelper.1.0.15\lib\MonoAndroid10\InputHelper.Android.dll</HintPath>
+      <HintPath>..\packages\InputHelper.1.0.17\lib\MonoAndroid10\InputHelper.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ListExtensions.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -60,11 +60,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MatrixExtensions.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MatrixExtensions.1.0.1\lib\MonoAndroid10\MatrixExtensions.Android.dll</HintPath>
+      <HintPath>..\packages\MatrixExtensions.1.0.2\lib\MonoAndroid10\MatrixExtensions.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MenuBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MenuBuddy.1.0.26\lib\MonoAndroid10\MenuBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\MenuBuddy.1.0.60\lib\MonoAndroid10\MenuBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />
@@ -73,24 +73,24 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MouseBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MouseBuddy.1.0.6\lib\MonoAndroid10\MouseBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\MouseBuddy.1.0.8\lib\MonoAndroid10\MouseBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="PrimitiveBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PrimitiveBuddy.1.0.0\lib\MonoAndroid10\PrimitiveBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\PrimitiveBuddy.1.0.3\lib\MonoAndroid10\PrimitiveBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RandomExtensions.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RandomExtensions.dmanning23.1.0.2\lib\MonoAndroid10\RandomExtensions.Android.dll</HintPath>
+      <HintPath>..\packages\RandomExtensions.dmanning23.1.0.3\lib\MonoAndroid10\RandomExtensions.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ResolutionBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ResolutionBuddy.1.0.2\lib\MonoAndroid10\ResolutionBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\ResolutionBuddy.1.0.7\lib\MonoAndroid10\ResolutionBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StateMachineBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StateMachineBuddy.1.0.0\lib\MonoAndroid10\StateMachineBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\StateMachineBuddy.1.0.1\lib\MonoAndroid10\StateMachineBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -98,38 +98,23 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="TetrisRandomizer.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TetrisRandomizer.1.0.0\lib\MonoAndroid10\TetrisRandomizer.Android.dll</HintPath>
+      <HintPath>..\packages\TetrisRandomizer.1.0.1\lib\MonoAndroid10\TetrisRandomizer.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TouchScreenBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TouchScreenBuddy.1.0.5\lib\MonoAndroid10\TouchScreenBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\TouchScreenBuddy.1.0.6\lib\MonoAndroid10\TouchScreenBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Vector2Extensions.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Vector2Extensions.1.0.1\lib\MonoAndroid10\Vector2Extensions.Android.dll</HintPath>
+      <HintPath>..\packages\Vector2Extensions.1.0.6\lib\MonoAndroid10\Vector2Extensions.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="XmlBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XmlBuddy.1.0.4\lib\MonoAndroid10\XmlBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\XmlBuddy.1.0.14\lib\MonoAndroid10\XmlBuddy.Android.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Source\Deck.cs">
-      <Link>Deck.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\FlashCard.cs">
-      <Link>FlashCard.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\QuestionLabel.cs">
-      <Link>QuestionLabel.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\QuestionMenuEntry.cs">
-      <Link>QuestionMenuEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Source\QuestionScreen.cs">
-      <Link>QuestionScreen.cs</Link>
-    </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +125,10 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\XmlBuddy.Content.dll" />
+  </ItemGroup>
+  <Import Project="..\FlashCards.SharedProject\FlashCards.SharedProject.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

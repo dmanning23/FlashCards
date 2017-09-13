@@ -47,7 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="InputHelper.DesktopGL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\InputHelper.1.0.17\lib\net451\InputHelper.DesktopGL.dll</HintPath>
+      <HintPath>..\packages\InputHelper.1.0.20\lib\net451\InputHelper.DesktopGL.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ListExtensions.DesktopGL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -59,7 +59,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MenuBuddy.DesktopGL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MenuBuddy.1.0.60\lib\net451\MenuBuddy.DesktopGL.dll</HintPath>
+      <HintPath>..\packages\MenuBuddy.1.0.76\lib\net451\MenuBuddy.DesktopGL.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
@@ -87,7 +87,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ResolutionBuddy.DesktopGL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ResolutionBuddy.1.0.7\lib\net451\ResolutionBuddy.DesktopGL.dll</HintPath>
+      <HintPath>..\packages\ResolutionBuddy.1.0.8\lib\net451\ResolutionBuddy.DesktopGL.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StateMachineBuddy.DesktopGL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

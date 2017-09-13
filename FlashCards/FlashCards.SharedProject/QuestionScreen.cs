@@ -140,7 +140,7 @@ namespace FlashCards
 			//create the correct menu entry
 			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true)
 			{
-				Transition = new WipeTransitionObject(TransitionWipeType.PopBottom),
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
 			};
 			CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
 			entries.Add(CorrectAnswerEntry);
@@ -155,7 +155,7 @@ namespace FlashCards
 				//create a menu entry for that answer
 				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false)
 				{
-					Transition = new WipeTransitionObject(TransitionWipeType.PopBottom)
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom)
 				};
 				wrongMenuEntry.OnClick += WrongAnswerSelected;
 				entries.Add(wrongMenuEntry);

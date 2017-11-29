@@ -212,7 +212,7 @@ namespace FlashCards
 			//check if we been here long enough
 			if (IsActive)
 			{
-				if (0.0f >= _autoQuit.RemainingTime())
+				if (0.0f >= _autoQuit.RemainingTime)
 				{
 					//has the user picked an answer?
 					if (!AnswerChosen)

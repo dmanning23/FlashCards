@@ -2,6 +2,7 @@ using FontBuddyLib;
 using InputHelper;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace FlashCards
 {
@@ -106,8 +107,8 @@ namespace FlashCards
 
 		#region Methods
 
-		public QuestionLabel(bool isCorrectAnswer, string text = "", FontSize fontSize = FontSize.Medium)
-			: base(text, fontSize)
+		public QuestionLabel(bool isCorrectAnswer, string text, ContentManager content, FontSize fontSize = FontSize.Medium)
+			: base(text, content, fontSize)
 		{
 			_questionAnswered = false;
 			IsCorrectAnswer = isCorrectAnswer;

@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.WindowsUniversal", "FlashCards.WindowsUniversal\FlashCards.WindowsUniversal.csproj", "{24D4260F-C1F2-4B84-A33E-666621E11B03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.Android", "FlashCards.Android\FlashCards.Android.csproj", "{66DDF24C-0022-42C7-A32F-2DBA6FA418CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.iOS", "FlashCards.iOS\FlashCards.iOS.csproj", "{6314F50E-6E40-4DE9-8C39-B3053EECAB85}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.DesktopGL", "FlashCards.DesktopGL\FlashCards.DesktopGL.csproj", "{54D68257-6F4B-4919-A33B-BBFDD01D8D0E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3B099000-B44C-40CF-BB73-FBE1C6FF6944}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FlashCards.SharedProject", "FlashCards.SharedProject\FlashCards.SharedProject.shproj", "{B33B759D-65B2-4571-B53A-6D91E8075570}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.WindowsDX", "FlashCards.WindowsDX\FlashCards.WindowsDX.csproj", "{54D68257-6F4B-4919-A33B-BBFDD01D8D0E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -141,5 +141,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E27BCEF4-1C5C-4B2D-8604-7FD791BBCE65}
 	EndGlobalSection
 EndGlobal

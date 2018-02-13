@@ -4,6 +4,7 @@ using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using ResolutionBuddy;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -79,6 +80,8 @@ namespace FlashCards
 
 		private SoundEffect WrongAnswerSound { get; set; }
 
+		private Deck Deck { get; set; }
+
 		#endregion //Properties
 
 		#region Initialization
@@ -103,6 +106,8 @@ namespace FlashCards
 		/// <param name="cards"></param>
 		public QuestionScreen(AnsweredCorrectly answered, Deck cards)
 		{
+			Deck = cards;
+
 			string question, correctAnswer;
 			List<string> wrongAnswers;
 			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers);
@@ -114,9 +119,6 @@ namespace FlashCards
 			string correctAnswer,
 			List<string> wrongAnswers)
 		{
-			Debug.Assert(null != answered);
-			Debug.Assert(null != wrongAnswers);
-
 			ScreenName = question;
 
 			//this screen should transition on really slow for effect
@@ -134,11 +136,26 @@ namespace FlashCards
 		{
 			base.LoadContent();
 
+			if (null != Deck)
+			{
+				//Add the text asking a question
+				var question = new Label($"What is the {Deck.TranslationLanguage} word for", Content, FontSize.Small)
+				{
+					Vertical = VerticalAlignment.Bottom,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+					//Scale = 0.5f,
+					Position= new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top),
+				};
+				AddItem(question);
+			}
+
 			//store a temp list of all the entries
 			var entries = new List<QuestionMenuEntry>();
 
 			//create the correct menu entry
-			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true)
+			CorrectAnswerEntry = new QuestionMenuEntry(CorrectAnswerText, true, Content)
 			{
 				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
 			};
@@ -146,14 +163,13 @@ namespace FlashCards
 			entries.Add(CorrectAnswerEntry);
 
 			//Add exactly three wrong answers
-			Debug.Assert(3 <= WrongAnswersText.Count);
 			for (int i = 0; i < 3; i++)
 			{
 				//get a random wrong answer
 				int index = _rand.Next(WrongAnswersText.Count);
 
 				//create a menu entry for that answer
-				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false)
+				var wrongMenuEntry = new QuestionMenuEntry(WrongAnswersText[index], false, Content)
 				{
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom)
 				};
@@ -174,7 +190,7 @@ namespace FlashCards
 			}
 
 			//load the sound effect to play when time runs out on a question
-			WrongAnswerSound = ScreenManager.Game.Content.Load<SoundEffect>("WrongAnswer");
+			WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
 
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(QuestionTime);
@@ -266,6 +282,15 @@ namespace FlashCards
 		public override void Cancelled(object obj, ClickEventArgs e)
 		{
 			//Do nothing if the user cancels a question screen
+		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			ScreenManager.SpriteBatchBegin();
+			FadeBackground(0.2f);
+			ScreenManager.SpriteBatchEnd();
+
+			base.Draw(gameTime);
 		}
 
 		#endregion //Methods

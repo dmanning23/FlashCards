@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>FlashCards</id>
-		<version>1.0.16</version>
+		<version>1.0.22</version>
 		<title>FlashCards</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -83,7 +83,7 @@
 			</group>
 
 			<group targetFramework="net451">
-				<dependency id="MonoGame.Framework.DesktopGL" version="3.5"/>
+				<dependency id="MonoGame.Framework.WindowsDX" version="3.5"/>
 				<dependency id="FilenameBuddy" version="1.0.1"/>
 				<dependency id="FontBuddy" version="1.0.1"/>
 				<dependency id="GameTimer" version="1.0"/>
@@ -119,9 +119,9 @@
 		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.pdb" target="lib\uap10.0\FlashCards.WindowsUniversal.pdb" />
 		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.dll" target="lib\uap10.0\FlashCards.WindowsUniversal.dll" />
 
-		<!--DesktopGL-->
-		<file src="FlashCards.DesktopGL\bin\Release\FlashCards.DesktopGL.pdb" target="lib\net451\FlashCards.DesktopGL.pdb" />
-		<file src="FlashCards.DesktopGL\bin\Release\FlashCards.DesktopGL.dll" target="lib\net451\FlashCards.DesktopGL.dll" />
+		<!--WindowsDX-->
+		<file src="FlashCards.WindowsDX\bin\Release\FlashCards.WindowsDX.pdb" target="lib\net451\FlashCards.WindowsDX.pdb" />
+		<file src="FlashCards.WindowsDX\bin\Release\FlashCards.WindowsDX.dll" target="lib\net451\FlashCards.WindowsDX.dll" />
 
 	</files>
 </package>

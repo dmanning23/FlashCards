@@ -1,4 +1,5 @@
 using MenuBuddy;
+using Microsoft.Xna.Framework.Content;
 
 namespace FlashCards
 {
@@ -38,11 +39,11 @@ namespace FlashCards
 
 		#region Methods
 
-		public QuestionMenuEntry(string text, bool correctAnswer)
-			: base(text)
+		public QuestionMenuEntry(string text, bool correctAnswer, ContentManager content)
+			: base(text, content)
 		{
 			CorrectAnswer = correctAnswer;
-			Label = CreateLabel();
+			Label = CreateLabel(content);
 
 			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;
@@ -52,9 +53,9 @@ namespace FlashCards
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 		}
 
-		protected override Label CreateLabel()
+		protected Label CreateLabel(ContentManager content)
 		{
-			return new QuestionLabel(CorrectAnswer, Text)
+			return new QuestionLabel(CorrectAnswer, Text, content)
 			{
 				Vertical = VerticalAlignment.Top,
 				Horizontal = HorizontalAlignment.Center

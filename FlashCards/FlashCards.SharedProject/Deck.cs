@@ -14,6 +14,10 @@ namespace FlashCards
 	{
 		#region Properties
 
+		public string PrimaryLanguage { get; set; }
+
+		public string TranslationLanguage { get; set; }
+
 		/// <summary>
 		/// what category of words is covered by this deck
 		/// </summary>

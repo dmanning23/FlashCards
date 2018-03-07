@@ -192,6 +192,13 @@ namespace FlashCards
 			_autoQuit.Start(QuestionTime);
 		}
 
+		public override void Dispose()
+		{
+			base.Dispose();
+
+			QuestionAnswered = null;
+		}
+
 		#endregion //Initialization
 
 		#region Handle Input

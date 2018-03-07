@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Deck.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlashCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionMenuEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionScreen.cs" />

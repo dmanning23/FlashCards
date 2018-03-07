@@ -42,7 +42,7 @@ namespace FlashCards
 		/// <summary>
 		/// method we will call when the user has answered
 		/// </summary>
-		private AnsweredCorrectly Answered { get; set; }
+		public event EventHandler<QuestionEventArgs> QuestionAnswered;
 
 		/// <summary>
 		/// whether or not the player got the question right
@@ -90,32 +90,29 @@ namespace FlashCards
 		///	hello, standard constructor!
 		/// </summary>
 		public QuestionScreen(
-			AnsweredCorrectly answered,
 			string question,
 			string correctAnswer,
 			List<string> wrongAnswers)
 			: base(question)
 		{
-			Init(answered, question, correctAnswer, wrongAnswers);
+			Init(question, correctAnswer, wrongAnswers);
 		}
 
 		/// <summary>
 		/// setup a question screen from a deck of flash cards
 		/// </summary>
-		/// <param name="answered"></param>
 		/// <param name="cards"></param>
-		public QuestionScreen(AnsweredCorrectly answered, Deck cards)
+		public QuestionScreen(Deck cards)
 		{
 			Deck = cards;
 
 			string question, correctAnswer;
 			List<string> wrongAnswers;
 			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers);
-			Init(answered, question, correctAnswer, wrongAnswers);
+			Init(question, correctAnswer, wrongAnswers);
 		}
 
-		private void Init(AnsweredCorrectly answered,
-			string question,
+		private void Init(string question,
 			string correctAnswer,
 			List<string> wrongAnswers)
 		{
@@ -127,7 +124,6 @@ namespace FlashCards
 			//set up the question
 			CorrectAnswerText = correctAnswer;
 			WrongAnswersText = wrongAnswers;
-			Answered = answered;
 			AnsweredCorrect = false;
 			AnswerChosen = false;
 		}
@@ -272,7 +268,10 @@ namespace FlashCards
 					}
 				}
 
-				Answered(AnsweredCorrect);
+				if (null != QuestionAnswered)
+				{
+					QuestionAnswered(this, new QuestionEventArgs(AnsweredCorrect));
+				}
 
 				//start the timer to exit this screen
 				_autoQuit.Start(0.75f);

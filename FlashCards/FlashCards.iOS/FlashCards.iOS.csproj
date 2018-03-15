@@ -46,6 +46,9 @@
     <Reference Include="InputHelper.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\InputHelper.1.0.21\lib\Xamarin.iOS10\InputHelper.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="LifeBarBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LifeBarBuddy.1.0.10\lib\Xamarin.iOS10\LifeBarBuddy.iOS.dll</HintPath>
+    </Reference>
     <Reference Include="ListExtensions.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ListExtensions.1.0.1\lib\Xamarin.iOS10\ListExtensions.iOS.dll</HintPath>
     </Reference>

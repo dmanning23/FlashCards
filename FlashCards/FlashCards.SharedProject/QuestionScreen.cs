@@ -1,5 +1,6 @@
 using GameTimer;
 using InputHelper;
+using LifeBarBuddy;
 using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
@@ -33,8 +34,6 @@ namespace FlashCards
 
 		private Random _rand = new Random();
 
-		private float _questionTime = 5f;
-
 		#endregion //Fields
 
 		#region Properties
@@ -66,21 +65,17 @@ namespace FlashCards
 		/// <summary>
 		/// How long the user has to answer a question before it is automatically marked as "wrong"
 		/// </summary>
-		public float QuestionTime
-		{
-			get
-			{
-				return _questionTime;
-			}
-			set
-			{
-				_questionTime = value;
-			}
-		}
+		public float QuestionTime { get; set; }
 
 		private SoundEffect WrongAnswerSound { get; set; }
 
 		private Deck Deck { get; set; }
+
+		private bool TimeRanOut { get; set; }
+
+		ITimerMeter CountdownClock { get; set; }
+
+		IMeterRenderer meterRenderer;
 
 		#endregion //Properties
 
@@ -116,7 +111,9 @@ namespace FlashCards
 			string correctAnswer,
 			List<string> wrongAnswers)
 		{
+			QuestionTime = 6f;
 			ScreenName = question;
+			TimeRanOut = false;
 
 			//this screen should transition on really slow for effect
 			Transition.OnTime = 0.5f;
@@ -142,7 +139,7 @@ namespace FlashCards
 					Highlightable = false,
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
 					//Scale = 0.5f,
-					Position= new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top),
+					Position = new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top),
 				};
 				AddItem(question);
 			}
@@ -188,8 +185,28 @@ namespace FlashCards
 			//load the sound effect to play when time runs out on a question
 			WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
 
+			meterRenderer = new MeterRenderer(Content, "MeterShader.fx");
+
+			var timerRect = new Rectangle(0, 0, 128, 128);
+
+			CountdownClock = new TimerMeter(QuestionTime, Content, "TimerBackground.png", "TimerMeter.png", "TimerGradient.png", timerRect)
+			{
+				NearEndTime = QuestionTime * 0.5f,
+			};
+
+			//create the widget to hold the meter
+			var meterShim = new MeterWidget(this, CountdownClock)
+			{
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopLeft),
+				Position = new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
+				Horizontal = HorizontalAlignment.Left,
+				Vertical = VerticalAlignment.Top,
+			};
+			AddItem(meterShim);
+
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(QuestionTime);
+			CountdownClock.Reset();
 		}
 
 		public override void Dispose()
@@ -228,10 +245,12 @@ namespace FlashCards
 			//update the timers
 			_autoQuit.Update(gameTime);
 
+			CountdownClock.Update(gameTime);
+
 			//check if we been here long enough
 			if (IsActive)
 			{
-				if (0.0f >= _autoQuit.RemainingTime)
+				if (!_autoQuit.HasTimeRemaining)
 				{
 					//has the user picked an answer?
 					if (!AnswerChosen)
@@ -241,6 +260,8 @@ namespace FlashCards
 
 						//play the "wrong" sound effect
 						WrongAnswerSound.Play();
+
+						TimeRanOut = true;
 					}
 					else
 					{
@@ -281,7 +302,7 @@ namespace FlashCards
 				}
 
 				//start the timer to exit this screen
-				_autoQuit.Start(0.75f);
+				_autoQuit.Start(1f);
 			}
 		}
 
@@ -297,6 +318,23 @@ namespace FlashCards
 			ScreenManager.SpriteBatchEnd();
 
 			base.Draw(gameTime);
+
+			//draw the meters
+			meterRenderer.Alpha = Transition.Alpha;
+			meterRenderer.SpriteBatchBegin(ScreenManager.SpriteBatch, Resolution.TransformationMatrix());
+			if (!AnswerChosen)
+			{
+				CountdownClock.Draw(_autoQuit.RemainingTime, meterRenderer, ScreenManager.SpriteBatch);
+			}
+			else if (TimeRanOut)
+			{
+				CountdownClock.Draw(0f, meterRenderer, ScreenManager.SpriteBatch);
+			}
+			else
+			{
+				CountdownClock.Draw(QuestionTime, meterRenderer, ScreenManager.SpriteBatch);
+			}
+			ScreenManager.SpriteBatch.End();
 		}
 
 		#endregion //Methods

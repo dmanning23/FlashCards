@@ -46,6 +46,9 @@
     <Reference Include="InputHelper.WindowsDX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\InputHelper.1.0.21\lib\net451\InputHelper.WindowsDX.dll</HintPath>
     </Reference>
+    <Reference Include="LifeBarBuddy.WindowsDX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LifeBarBuddy.1.0.10\lib\net451\LifeBarBuddy.WindowsDX.dll</HintPath>
+    </Reference>
     <Reference Include="ListExtensions.WindowsDX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ListExtensions.1.0.1\lib\net451\ListExtensions.WindowsDX.dll</HintPath>
     </Reference>
@@ -100,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\MeterShader.fx" />
   </ItemGroup>
   <Import Project="..\FlashCards.SharedProject\FlashCards.SharedProject.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

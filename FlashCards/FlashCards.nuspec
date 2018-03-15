@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>FlashCards</id>
-		<version>1.0.25</version>
+		<version>1.0.27</version>
 		<title>FlashCards</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -23,6 +23,7 @@
 				<dependency id="GameTimer" version="1.0"/>
 				<dependency id="HadoukInput" version="1.0"/>
 				<dependency id="InputHelper" version="1.0.1"/>
+				<dependency id="LifeBarBuddy" version="1.0"/>
 				<dependency id="ListExtensions" version="1.0"/>
 				<dependency id="MatrixExtensions" version="1.0"/>
 				<dependency id="MenuBuddy" version="1.0"/>
@@ -45,6 +46,7 @@
 				<dependency id="GameTimer" version="1.0"/>
 				<dependency id="HadoukInput" version="1.0"/>
 				<dependency id="InputHelper" version="1.0.1"/>
+				<dependency id="LifeBarBuddy" version="1.0"/>
 				<dependency id="ListExtensions" version="1.0"/>
 				<dependency id="MatrixExtensions" version="1.0"/>
 				<dependency id="MenuBuddy" version="1.0"/>
@@ -68,6 +70,7 @@
 				<dependency id="GameTimer" version="1.0"/>
 				<dependency id="HadoukInput" version="1.0"/>
 				<dependency id="InputHelper" version="1.0.1"/>
+				<dependency id="LifeBarBuddy" version="1.0"/>
 				<dependency id="ListExtensions" version="1.0"/>
 				<dependency id="MatrixExtensions" version="1.0"/>
 				<dependency id="MenuBuddy" version="1.0"/>
@@ -89,6 +92,7 @@
 				<dependency id="GameTimer" version="1.0"/>
 				<dependency id="HadoukInput" version="1.0"/>
 				<dependency id="InputHelper" version="1.0.1"/>
+				<dependency id="LifeBarBuddy" version="1.0"/>
 				<dependency id="ListExtensions" version="1.0"/>
 				<dependency id="MatrixExtensions" version="1.0"/>
 				<dependency id="MenuBuddy" version="1.0"/>
@@ -115,9 +119,9 @@
 		<file src="FlashCards.iOS\bin\Release\FlashCards.iOS.pdb" target="lib\Xamarin.iOS10\FlashCards.iOS.pdb" />
 		<file src="FlashCards.iOS\bin\Release\FlashCards.iOS.dll" target="lib\Xamarin.iOS10\FlashCards.iOS.dll" />
 
-		<!--Windows Universal-->
+		<!--Windows Universal--><!--
 		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.pdb" target="lib\uap10.0\FlashCards.WindowsUniversal.pdb" />
-		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.dll" target="lib\uap10.0\FlashCards.WindowsUniversal.dll" />
+		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.dll" target="lib\uap10.0\FlashCards.WindowsUniversal.dll" />-->
 
 		<!--WindowsDX-->
 		<file src="FlashCards.WindowsDX\bin\Release\FlashCards.WindowsDX.pdb" target="lib\net451\FlashCards.WindowsDX.pdb" />

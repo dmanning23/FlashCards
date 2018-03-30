@@ -5,6 +5,7 @@ using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,8 @@ namespace FlashCards
 
 		IMeterRenderer meterRenderer;
 
+		IScreen TimerScreen { get; set; }
+
 		#endregion //Properties
 
 		#region Initialization
@@ -84,11 +87,8 @@ namespace FlashCards
 		/// <summary>
 		///	hello, standard constructor!
 		/// </summary>
-		public QuestionScreen(
-			string question,
-			string correctAnswer,
-			List<string> wrongAnswers)
-			: base(question)
+		public QuestionScreen(string question, string correctAnswer, List<string> wrongAnswers, ContentManager content = null) :
+			base(question, content)
 		{
 			Init(question, correctAnswer, wrongAnswers);
 		}
@@ -96,8 +96,9 @@ namespace FlashCards
 		/// <summary>
 		/// setup a question screen from a deck of flash cards
 		/// </summary>
-		/// <param name="cards"></param>
-		public QuestionScreen(Deck cards)
+		/// <param name="cards"></param> 
+		public QuestionScreen(Deck cards, ContentManager content = null) :
+			base("", content)
 		{
 			Deck = cards;
 
@@ -138,7 +139,6 @@ namespace FlashCards
 					Horizontal = HorizontalAlignment.Center,
 					Highlightable = false,
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-					//Scale = 0.5f,
 					Position = new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top),
 				};
 				AddItem(question);
@@ -194,19 +194,25 @@ namespace FlashCards
 				NearEndTime = QuestionTime * 0.5f,
 			};
 
-			//create the widget to hold the meter
-			var meterShim = new MeterWidget(this, CountdownClock)
-			{
-				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopLeft),
-				Position = new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
-				Horizontal = HorizontalAlignment.Left,
-				Vertical = VerticalAlignment.Top,
-			};
-			AddItem(meterShim);
+			//add the meter screen
+			TimerScreen = new MeterScreen(CountdownClock, 
+				new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
+				TransitionWipeType.PopLeft, 
+				Content, 
+				VerticalAlignment.Top,
+				HorizontalAlignment.Left);
+
+			ScreenManager.AddScreen(TimerScreen);
 
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(QuestionTime);
 			CountdownClock.Reset();
+		}
+
+		public override void ExitScreen()
+		{
+			base.ExitScreen();
+			TimerScreen.ExitScreen();
 		}
 
 		public override void Dispose()
@@ -303,6 +309,7 @@ namespace FlashCards
 
 				//start the timer to exit this screen
 				_autoQuit.Start(1f);
+				TimerScreen.ExitScreen();
 			}
 		}
 

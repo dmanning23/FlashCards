@@ -1,5 +1,6 @@
 using MenuBuddy;
 using Microsoft.Xna.Framework.Content;
+using ResolutionBuddy;
 
 namespace FlashCards
 {
@@ -44,6 +45,7 @@ namespace FlashCards
 		{
 			CorrectAnswer = correctAnswer;
 			Label = CreateLabel(content);
+			Label.ShrinkToFit(Resolution.TitleSafeArea.Width);
 
 			_label = Label as QuestionLabel;
 			OnClick += _label.OnAnswer;

@@ -1,14 +1,14 @@
 ﻿{
   "dependencies": {
-    "FilenameBuddy": "1.0.11",
-    "FontBuddy": "1.0.22",
+    "FilenameBuddy": "1.0.12",
+    "FontBuddy": "1.0.29",
     "GameTimer": "1.0.8",
     "HadoukInput": "1.0.12",
     "InputHelper": "1.0.21",
     "ListExtensions": "1.0.1",
     "MatrixExtensions": "1.0.3",
-    "MenuBuddy": "1.0.115",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "MenuBuddy": "1.0.137",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
     "MonoGame.Framework.WindowsUniversal": "3.6.0.1625",
     "MouseBuddy": "1.0.9",
     "PrimitiveBuddy": "1.0.4",
@@ -17,7 +17,7 @@
     "StateMachineBuddy": "1.0.12",
     "TetrisRandomizer": "1.0.2",
     "TouchScreenBuddy": "1.0.7",
-    "Vector2Extensions": "1.0.9",
+    "Vector2Extensions": "1.0.11",
     "XmlBuddy": "1.0.20"
   },
   "frameworks": {

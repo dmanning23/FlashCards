@@ -55,11 +55,21 @@ namespace FlashCards
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 		}
 
+		public override void LoadContent(IScreen screen)
+		{
+			base.LoadContent(screen);
+
+			if (Rect.Width < _label.Rect.Width)
+			{
+				Size = new Microsoft.Xna.Framework.Vector2(_label.Rect.Width, Size.Y);
+			}
+		}
+
 		protected Label CreateLabel(ContentManager content)
 		{
 			return new QuestionLabel(CorrectAnswer, Text, content)
 			{
-				Vertical = VerticalAlignment.Top,
+				Vertical = VerticalAlignment.Center,
 				Horizontal = HorizontalAlignment.Center
 			};
 		}

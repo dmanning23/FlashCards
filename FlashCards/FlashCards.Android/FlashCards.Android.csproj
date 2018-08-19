@@ -51,7 +51,7 @@
       <HintPath>..\packages\InputHelper.1.0.22\lib\MonoAndroid10\InputHelper.Android.dll</HintPath>
     </Reference>
     <Reference Include="LifeBarBuddy.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LifeBarBuddy.1.0.16\lib\MonoAndroid10\LifeBarBuddy.Android.dll</HintPath>
+      <HintPath>..\packages\LifeBarBuddy.1.0.17\lib\MonoAndroid10\LifeBarBuddy.Android.dll</HintPath>
     </Reference>
     <Reference Include="ListExtensions.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ListExtensions.1.0.1\lib\MonoAndroid10\ListExtensions.Android.dll</HintPath>

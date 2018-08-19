@@ -76,8 +76,8 @@ namespace FlashCards
 		{
 			//grab a random flash card to be the question
 			int index = rand.Next();
-			question = Cards[index].Translation;
-			correctAnswer = Cards[index].Word;
+			question = Cards[index].Word;
+			correctAnswer = Cards[index].Translation;
 
 			//add all the possible incorrect answers
 			wrongAnswers = new List<string>();
@@ -85,7 +85,7 @@ namespace FlashCards
 			{
 				if (index != i)
 				{
-					wrongAnswers.Add(Cards[i].Word);
+					wrongAnswers.Add(Cards[i].Translation);
 				}
 			}
 		}

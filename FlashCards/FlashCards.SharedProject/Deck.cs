@@ -72,12 +72,12 @@ namespace FlashCards
 		/// <param name="question"></param>
 		/// <param name="correctAnswer"></param>
 		/// <param name="wrongAnswers"></param>
-		public void GetQuestion(out string question, out string correctAnswer, out List<string> wrongAnswers)
+		public void GetQuestion(out string question, out string correctAnswer, out List<string> wrongAnswers, bool flipQuestion)
 		{
 			//grab a random flash card to be the question
 			int index = rand.Next();
-			question = Cards[index].Word;
-			correctAnswer = Cards[index].Translation;
+			question = !flipQuestion ? Cards[index].Word : Cards[index].Translation;
+			correctAnswer = !flipQuestion ? Cards[index].Translation : Cards[index].Word;
 
 			//add all the possible incorrect answers
 			wrongAnswers = new List<string>();
@@ -85,7 +85,7 @@ namespace FlashCards
 			{
 				if (index != i)
 				{
-					wrongAnswers.Add(Cards[i].Translation);
+					wrongAnswers.Add(!flipQuestion ? Cards[i].Translation : Cards[i].Word);
 				}
 			}
 		}

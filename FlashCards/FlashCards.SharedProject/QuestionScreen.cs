@@ -80,37 +80,40 @@ namespace FlashCards
 
 		IScreen TimerScreen { get; set; }
 
-		#endregion //Properties
+		bool FlipQuestion { get; set; }
 
-		#region Initialization
+	#endregion //Properties
 
-		/// <summary>
-		///	hello, standard constructor!
-		/// </summary>
-		public QuestionScreen(string question, string correctAnswer, List<string> wrongAnswers, ContentManager content = null) :
+	#region Initialization
+
+	/// <summary>
+	///	hello, standard constructor!
+	/// </summary>
+	public QuestionScreen(string question, string correctAnswer, List<string> wrongAnswers, ContentManager content = null, bool flipQuestion = false) :
 			base(question, content)
 		{
-			Init(question, correctAnswer, wrongAnswers);
+			Init(question, correctAnswer, wrongAnswers, flipQuestion);
 		}
 
 		/// <summary>
 		/// setup a question screen from a deck of flash cards
 		/// </summary>
 		/// <param name="cards"></param> 
-		public QuestionScreen(Deck cards, ContentManager content = null) :
+		public QuestionScreen(Deck cards, ContentManager content = null, bool flipQuestion = false) :
 			base("", content)
 		{
 			Deck = cards;
 
 			string question, correctAnswer;
 			List<string> wrongAnswers;
-			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers);
-			Init(question, correctAnswer, wrongAnswers);
+			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers, flipQuestion);
+			Init(question, correctAnswer, wrongAnswers, flipQuestion);
 		}
 
 		private void Init(string question,
 			string correctAnswer,
-			List<string> wrongAnswers)
+			List<string> wrongAnswers,
+			bool flipQuestion)
 		{
 			QuestionTime = 6f;
 			ScreenName = question;
@@ -124,6 +127,7 @@ namespace FlashCards
 			WrongAnswersText = wrongAnswers;
 			AnsweredCorrect = false;
 			AnswerChosen = false;
+			FlipQuestion = flipQuestion;
 		}
 
 		public override void LoadContent()
@@ -133,7 +137,7 @@ namespace FlashCards
 			if (null != Deck)
 			{
 				//Add the text asking a question
-				var question = new Label($"What is the {Deck.TranslationLanguage} word for", Content, FontSize.Small)
+				var question = new Label($"What is the {(!FlipQuestion ? Deck.TranslationLanguage : Deck.PrimaryLanguage)} word for", Content, FontSize.Small)
 				{
 					Vertical = VerticalAlignment.Bottom,
 					Horizontal = HorizontalAlignment.Center,

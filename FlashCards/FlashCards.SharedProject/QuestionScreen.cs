@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FlashCards
 {
@@ -82,15 +82,15 @@ namespace FlashCards
 
 		bool FlipQuestion { get; set; }
 
-	#endregion //Properties
+		#endregion //Properties
 
-	#region Initialization
+		#region Initialization
 
-	/// <summary>
-	///	hello, standard constructor!
-	/// </summary>
-	public QuestionScreen(string question, string correctAnswer, List<string> wrongAnswers, ContentManager content = null, bool flipQuestion = false) :
-			base(question, content)
+		/// <summary>
+		///	hello, standard constructor!
+		/// </summary>
+		public QuestionScreen(string question, string correctAnswer, List<string> wrongAnswers, ContentManager content = null, bool flipQuestion = false) :
+				base(question, content)
 		{
 			Init(question, correctAnswer, wrongAnswers, flipQuestion);
 		}
@@ -130,9 +130,9 @@ namespace FlashCards
 			FlipQuestion = flipQuestion;
 		}
 
-		public override void LoadContent()
+		public override async Task LoadContent()
 		{
-			base.LoadContent();
+			await base.LoadContent();
 
 			if (null != Deck)
 			{
@@ -199,14 +199,14 @@ namespace FlashCards
 			};
 
 			//add the meter screen
-			TimerScreen = new MeterScreen(CountdownClock, 
+			TimerScreen = new MeterScreen(CountdownClock,
 				new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
-				TransitionWipeType.PopLeft, 
-				Content, 
+				TransitionWipeType.PopLeft,
+				Content,
 				VerticalAlignment.Top,
 				HorizontalAlignment.Left);
 
-			ScreenManager.AddScreen(TimerScreen);
+			await ScreenManager.AddScreen(TimerScreen);
 
 			//make the player stare at this screen for 2 seconds before they can quit
 			_autoQuit.Start(QuestionTime);
@@ -255,9 +255,12 @@ namespace FlashCards
 			//update the timers
 			_autoQuit.Update(gameTime);
 
-			CountdownClock.Update(gameTime);
+			if (null != CountdownClock)
+			{
+				CountdownClock.Update(gameTime);
+			}
 
-			//check if we been here long enough
+				//check if we been here long enough
 			if (IsActive)
 			{
 				if (!_autoQuit.HasTimeRemaining)

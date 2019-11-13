@@ -3,6 +3,7 @@ using InputHelper;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.Threading.Tasks;
 
 namespace FlashCards
 {
@@ -114,9 +115,9 @@ namespace FlashCards
 			IsCorrectAnswer = isCorrectAnswer;
 		}
 
-		public override void LoadContent(IScreen screen)
+		public override async Task LoadContent(IScreen screen)
 		{
-			base.LoadContent(screen);
+			await base.LoadContent(screen);
 
 			//Set the colors
 			CorrectColor = new Color(0.0f, 0.7f, 0.0f);

@@ -1,6 +1,7 @@
 using MenuBuddy;
 using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
+using System.Threading.Tasks;
 
 namespace FlashCards
 {
@@ -55,9 +56,9 @@ namespace FlashCards
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 		}
 
-		public override void LoadContent(IScreen screen)
+		public override async Task LoadContent(IScreen screen)
 		{
-			base.LoadContent(screen);
+			await base.LoadContent(screen);
 
 			if (Rect.Width < _label.Rect.Width)
 			{

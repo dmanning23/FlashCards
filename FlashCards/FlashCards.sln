@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.WindowsUniversal", "FlashCards.WindowsUniversal\FlashCards.WindowsUniversal.csproj", "{24D4260F-C1F2-4B84-A33E-666621E11B03}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.Android", "FlashCards.Android\FlashCards.Android.csproj", "{66DDF24C-0022-42C7-A32F-2DBA6FA418CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.iOS", "FlashCards.iOS\FlashCards.iOS.csproj", "{6314F50E-6E40-4DE9-8C39-B3053EECAB85}"
@@ -21,7 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.WindowsDX", "Fla
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		FlashCards.SharedProject\FlashCards.SharedProject.projitems*{24d4260f-c1f2-4b84-a33e-666621e11b03}*SharedItemsImports = 4
 		FlashCards.SharedProject\FlashCards.SharedProject.projitems*{54d68257-6f4b-4919-a33b-bbfdd01d8d0e}*SharedItemsImports = 4
 		FlashCards.SharedProject\FlashCards.SharedProject.projitems*{6314f50e-6e40-4de9-8c39-b3053eecab85}*SharedItemsImports = 4
 		FlashCards.SharedProject\FlashCards.SharedProject.projitems*{66ddf24c-0022-42c7-a32f-2dba6fa418cc}*SharedItemsImports = 4
@@ -42,30 +39,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|ARM.ActiveCfg = Release|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|ARM.Build.0 = Release|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|x64.ActiveCfg = Release|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|x64.Build.0 = Release|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|x86.ActiveCfg = Release|x86
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.AppStore|x86.Build.0 = Release|x86
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|ARM.ActiveCfg = Debug|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|ARM.Build.0 = Debug|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|x64.ActiveCfg = Debug|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|x64.Build.0 = Debug|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|x86.ActiveCfg = Debug|x86
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Debug|x86.Build.0 = Debug|x86
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|ARM.ActiveCfg = Release|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|ARM.Build.0 = Release|ARM
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|x64.ActiveCfg = Release|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|x64.Build.0 = Release|x64
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|x86.ActiveCfg = Release|x86
-		{24D4260F-C1F2-4B84-A33E-666621E11B03}.Release|x86.Build.0 = Release|x86
 		{66DDF24C-0022-42C7-A32F-2DBA6FA418CC}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
 		{66DDF24C-0022-42C7-A32F-2DBA6FA418CC}.AppStore|Any CPU.Build.0 = Release|Any CPU
 		{66DDF24C-0022-42C7-A32F-2DBA6FA418CC}.AppStore|ARM.ActiveCfg = Release|Any CPU

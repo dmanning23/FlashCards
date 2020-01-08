@@ -143,7 +143,7 @@ namespace FlashCards
 					Horizontal = HorizontalAlignment.Center,
 					Highlightable = false,
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-					Position = new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top),
+					Position = new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top - 16),
 				};
 				AddItem(question);
 			}

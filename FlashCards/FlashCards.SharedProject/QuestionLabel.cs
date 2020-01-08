@@ -94,11 +94,7 @@ namespace FlashCards
 						CurrentColor = WrongNotSelectedColor;
 
 						//set the text to a plain vanilla font buddy
-						var font = new FontBuddy()
-						{
-							Font = FontBuddy.Font
-						};
-						FontBuddy = font;
+						this.Font = FontBuddy;
 					}
 				}
 			}
@@ -145,11 +141,11 @@ namespace FlashCards
 				if (IsCorrectAnswer)
 				{
 					//Set the font buddy to shaky text
-					FontBuddy = new PulsateBuddy()
+					Font = new PulsateBuddy()
 					{
 						PulsateSize = 4.0f,
 						PulsateSpeed = 12.0f,
-						Font = FontBuddy.Font
+						Font = FontBuddy
 					};
 
 					CurrentColor = CorrectColor;
@@ -157,25 +153,13 @@ namespace FlashCards
 				else
 				{
 					//Set the font buddy to "wrong" text
-					FontBuddy = new WrongTextBuddy()
+					Font = new WrongTextBuddy()
 					{
-						Font = FontBuddy.Font
+						Font = FontBuddy
 					};
 
 					CurrentColor = WrongColor;
 				}
-			}
-		}
-
-		protected override IFontBuddy GetFont()
-		{
-			if (QuestionAnswered)
-			{
-				return FontBuddy;
-			}
-			else
-			{
-				return base.GetFont();
 			}
 		}
 

@@ -25,7 +25,7 @@ namespace FlashCards
 	/// </summary>
 	public class QuestionScreen : MenuScreen
 	{
-		#region Fields
+		#region Properties
 
 		/// <summary>
 		/// this timer is used to automatically choose an answer
@@ -34,10 +34,6 @@ namespace FlashCards
 		private CountdownTimer _autoQuit = new CountdownTimer();
 
 		private Random _rand = new Random();
-
-		#endregion //Fields
-
-		#region Properties
 
 		/// <summary>
 		/// method we will call when the user has answered
@@ -54,7 +50,7 @@ namespace FlashCards
 		/// </summary>
 		private bool AnswerChosen { get; set; }
 
-		private string CorrectAnswerText { get; set; }
+		protected string CorrectAnswerText { get; set; }
 
 		private List<string> WrongAnswersText { get; set; }
 
@@ -70,7 +66,7 @@ namespace FlashCards
 
 		private SoundEffect WrongAnswerSound { get; set; }
 
-		private Deck Deck { get; set; }
+		protected Deck Deck { get; set; }
 
 		private bool TimeRanOut { get; set; }
 
@@ -80,7 +76,7 @@ namespace FlashCards
 
 		IScreen TimerScreen { get; set; }
 
-		bool FlipQuestion { get; set; }
+		protected bool FlipQuestion { get; set; }
 
 		#endregion //Properties
 
@@ -260,7 +256,7 @@ namespace FlashCards
 				CountdownClock.Update(gameTime);
 			}
 
-				//check if we been here long enough
+			//check if we been here long enough
 			if (IsActive)
 			{
 				if (!_autoQuit.HasTimeRemaining)

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
 		<id>FlashCards</id>
-		<version>2.0.12</version>
+		<version>2.0.15</version>
 		<title>FlashCards</title>
 		<authors>dmanning23</authors>
 		<owners>dmanning23</owners>
@@ -61,30 +61,6 @@
 				<dependency id="XmlBuddy" version="2.0"/>
 			</group>
 
-			<!--Win Universal-->
-			<group targetFramework="uap10.0">
-				<dependency id="MonoGame.Framework.WindowsUniversal" version="3.7"/>
-				<dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1"/>
-				<dependency id="FilenameBuddy" version="2.0"/>
-				<dependency id="FontBuddy" version="2.0"/>
-				<dependency id="GameTimer" version="2.0"/>
-				<dependency id="HadoukInput" version="2.0"/>
-				<dependency id="InputHelper" version="2.0"/>
-				<dependency id="LifeBarBuddy" version="2.0"/>
-				<dependency id="ListExtensions" version="2.0"/>
-				<dependency id="MatrixExtensions" version="2.0"/>
-				<dependency id="MenuBuddy" version="2.0"/>
-				<dependency id="MouseBuddy" version="2.0"/>
-				<dependency id="PrimitiveBuddy" version="2.0"/>
-				<dependency id="RandomExtensions.dmanning23" version="2.0"/>
-				<dependency id="ResolutionBuddy" version="2.0"/>
-				<dependency id="StateMachineBuddy" version="2.0"/>
-				<dependency id="TetrisRandomizer" version="2.0"/>
-				<dependency id="TouchScreenBuddy" version="2.0"/>
-				<dependency id="Vector2Extensions" version="2.0"/>
-				<dependency id="XmlBuddy" version="2.0"/>
-			</group>
-
 			<group targetFramework="net451">
 				<dependency id="MonoGame.Framework.WindowsDX" version="3.7"/>
 				<dependency id="FilenameBuddy" version="2.0"/>
@@ -118,10 +94,6 @@
 		<!--Xamarin.iOS Unified-->
 		<file src="FlashCards.iOS\bin\Release\FlashCards.iOS.pdb" target="lib\Xamarin.iOS10\FlashCards.iOS.pdb" />
 		<file src="FlashCards.iOS\bin\Release\FlashCards.iOS.dll" target="lib\Xamarin.iOS10\FlashCards.iOS.dll" />
-
-		<!--Windows Universal--><!--
-		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.pdb" target="lib\uap10.0\FlashCards.WindowsUniversal.pdb" />
-		<file src="FlashCards.WindowsUniversal\bin\Release\FlashCards.WindowsUniversal.dll" target="lib\uap10.0\FlashCards.WindowsUniversal.dll" />-->
 
 		<!--WindowsDX-->
 		<file src="FlashCards.WindowsDX\bin\Release\FlashCards.WindowsDX.pdb" target="lib\net451\FlashCards.WindowsDX.pdb" />

@@ -23,7 +23,7 @@ namespace FlashCards
 	/// This is a menu screen that has a thing to translate, and then four possible options.
 	/// The user has to choose one of the options, but only one of the answers is correct. 
 	/// </summary>
-	public class QuestionScreen : MenuScreen
+	public class QuestionScreen : MenuStackScreen
 	{
 		#region Properties
 

@@ -37,7 +37,7 @@
       <HintPath>..\packages\FilenameBuddy.2.0.8\lib\Xamarin.iOS10\FilenameBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="FontBuddyLib.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FontBuddy.2.0.15\lib\Xamarin.iOS10\FontBuddyLib.iOS.dll</HintPath>
+      <HintPath>..\packages\FontBuddy.2.0.17\lib\Xamarin.iOS10\FontBuddyLib.iOS.dll</HintPath>
     </Reference>
     <Reference Include="GameTimer.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GameTimer.2.0.0\lib\Xamarin.iOS10\GameTimer.iOS.dll</HintPath>
@@ -49,7 +49,7 @@
       <HintPath>..\packages\InputHelper.2.0.7\lib\Xamarin.iOS10\InputHelper.iOS.dll</HintPath>
     </Reference>
     <Reference Include="LifeBarBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LifeBarBuddy.2.0.7\lib\Xamarin.iOS10\LifeBarBuddy.iOS.dll</HintPath>
+      <HintPath>..\packages\LifeBarBuddy.2.0.10\lib\Xamarin.iOS10\LifeBarBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="ListExtensions.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ListExtensions.2.0.0\lib\Xamarin.iOS10\ListExtensions.iOS.dll</HintPath>
@@ -58,16 +58,16 @@
       <HintPath>..\packages\MatrixExtensions.2.0.0\lib\Xamarin.iOS10\MatrixExtensions.iOS.dll</HintPath>
     </Reference>
     <Reference Include="MenuBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MenuBuddy.2.0.61\lib\Xamarin.iOS10\MenuBuddy.iOS.dll</HintPath>
+      <HintPath>..\packages\MenuBuddy.2.0.73\lib\Xamarin.iOS10\MenuBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Framework.iOS.3.7.1.189\lib\XamariniOS\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="MouseBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MouseBuddy.2.0.2\lib\Xamarin.iOS10\MouseBuddy.iOS.dll</HintPath>
+      <HintPath>..\packages\MouseBuddy.2.0.3\lib\Xamarin.iOS10\MouseBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="PrimitiveBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PrimitiveBuddy.2.0.0\lib\Xamarin.iOS10\PrimitiveBuddy.iOS.dll</HintPath>
+      <HintPath>..\packages\PrimitiveBuddy.2.0.1\lib\Xamarin.iOS10\PrimitiveBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="RandomExtensions.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RandomExtensions.dmanning23.2.0.0\lib\Xamarin.iOS10\RandomExtensions.iOS.dll</HintPath>
@@ -79,7 +79,7 @@
       <HintPath>..\packages\SpriteFontPlus.MonoGame.0.7.0.22\lib\netstandard2.0\SpriteFontPlus.dll</HintPath>
     </Reference>
     <Reference Include="StateMachineBuddy.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StateMachineBuddy.2.0.19\lib\Xamarin.iOS10\StateMachineBuddy.iOS.dll</HintPath>
+      <HintPath>..\packages\StateMachineBuddy.2.0.21\lib\Xamarin.iOS10\StateMachineBuddy.iOS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -106,9 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\MeterShader.fx" />
   </ItemGroup>
   <Import Project="..\FlashCards.SharedProject\FlashCards.SharedProject.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

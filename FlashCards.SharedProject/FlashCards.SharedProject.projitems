@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>b33b759d-65b2-4571-b53a-6d91e8075570</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>FlashCards.SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Deck.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlashCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionLabel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionMenuEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Translation.cs" />
+  </ItemGroup>
+</Project>

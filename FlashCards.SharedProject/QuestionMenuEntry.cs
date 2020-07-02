@@ -1,6 +1,8 @@
+using FontBuddyLib;
 using MenuBuddy;
 using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
+using System;
 using System.Threading.Tasks;
 
 namespace FlashCards
@@ -45,20 +47,15 @@ namespace FlashCards
 			: base(text, content)
 		{
 			CorrectAnswer = correctAnswer;
-			Label = CreateLabel(content);
 			Label.ShrinkToFit(Resolution.TitleSafeArea.Width);
 
 			_label = Label as QuestionLabel;
+			_label.IsCorrectAnswer = correctAnswer;
 			OnClick += _label.OnAnswer;
 			Highlightable = false;
 
 			//Setting the resource name here will cause the correct sound effect to be loaded an played when this button is clicked
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
-		}
-
-		public override async Task LoadContent(IScreen screen)
-		{
-			await base.LoadContent(screen);
 
 			if (Rect.Width < _label.Rect.Width)
 			{
@@ -66,13 +63,23 @@ namespace FlashCards
 			}
 		}
 
-		protected Label CreateLabel(ContentManager content)
+		public override Label CreateLabel(ContentManager content)
 		{
-			return new QuestionLabel(CorrectAnswer, Text, content)
+			return new QuestionLabel(CorrectAnswer, Text, content, FontSize.Medium)
 			{
 				Vertical = VerticalAlignment.Center,
 				Horizontal = HorizontalAlignment.Center
 			};
+		}
+
+		public override Label CreateLabel(IFontBuddy font, IFontBuddy highlightedFont = null)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override Label CreateLabel(Label inst)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion //Methods

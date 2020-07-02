@@ -68,6 +68,5 @@ namespace FlashCards
 		}
 
 		#endregion //Methods
-
 	}
 }

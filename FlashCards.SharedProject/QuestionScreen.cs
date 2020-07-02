@@ -23,7 +23,7 @@ namespace FlashCards
 	/// This is a menu screen that has a thing to translate, and then four possible options.
 	/// The user has to choose one of the options, but only one of the answers is correct. 
 	/// </summary>
-	public class QuestionScreen : MenuStackScreen
+	public class QuestionScreen : WidgetScreen
 	{
 		#region Properties
 
@@ -51,7 +51,13 @@ namespace FlashCards
 		private bool AnswerChosen { get; set; }
 
 		FlashCard question;
+
+		protected FlashCard Question => question;
+
 		Translation correctAnswer;
+
+		protected Translation CorrectAnswer => correctAnswer;
+
 		List<Translation> wrongAnswers;
 
 		/// <summary>
@@ -76,6 +82,8 @@ namespace FlashCards
 
 		IScreen TimerScreen { get; set; }
 
+		List<QuestionMenuEntry> Entries { get; set; } = new List<QuestionMenuEntry>();
+
 		#endregion //Properties
 
 		#region Initialization
@@ -89,6 +97,8 @@ namespace FlashCards
 		{
 			Deck = cards;
 			QuestionTime = 6f;
+			CoveredByOtherScreens = false;
+			CoverOtherScreens = true;
 
 			//this screen should transition on really slow for effect
 			Transition.OnTime = 0.5f;
@@ -105,27 +115,51 @@ namespace FlashCards
 		{
 			await base.LoadContent();
 
-			if (null != Deck)
+			//create the stack layout to hold the question and words
+			var questionStack = new StackLayout(StackAlignment.Top)
 			{
-				//Add the text asking a question
-				var question = new Label($"What is the {correctAnswer.Language} word for", Content, FontSize.Small)
+				Vertical = VerticalAlignment.Bottom,
+				Horizontal = HorizontalAlignment.Center,
+				Highlightable = false,
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+			};
+
+			//Add the text asking a question
+			var questionLabel = new Label($"What is the {correctAnswer.Language} word for", Content, FontSize.Small)
+			{
+				Vertical = VerticalAlignment.Center,
+				Horizontal = HorizontalAlignment.Center,
+				Highlightable = false,
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+			};
+			questionStack.AddItem(questionLabel);
+
+			//Add all the translations
+			foreach (var translation in question.Translations)
+			{
+				if (translation.Language != correctAnswer.Language)
 				{
-					Vertical = VerticalAlignment.Bottom,
-					Horizontal = HorizontalAlignment.Center,
-					Highlightable = false,
-					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-					Position = new Point(Resolution.ScreenArea.Center.X, MenuTitle.Rect.Top - 16),
-				};
-				AddItem(question);
+					var translationLabel = new Label(translation.Word, Content, FontSize.Medium)
+					{
+						Vertical = VerticalAlignment.Center,
+						Horizontal = HorizontalAlignment.Center,
+						Highlightable = false,
+						TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+						Scale = 1.2f,
+					};
+					translationLabel.ShrinkToFit(Resolution.TitleSafeArea.Width);
+					questionStack.AddItem(translationLabel);
+					questionStack.AddItem(new Shim(0, 8));
+				}
 			}
 
-			//store a temp list of all the entries
-			var entries = new List<IScreenItem>();
+			questionStack.Position = new Point(Resolution.ScreenArea.Center.X, (int)((Resolution.TitleSafeArea.Height * 0.2f) - (questionStack.Rect.Height * 0.5f)));
+			AddItem(questionStack);
 
 			//create the correct menu entry
 			CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, true, Content);
 			CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
-			entries.Add(CorrectAnswerEntry);
+			Entries.Add(CorrectAnswerEntry);
 
 			//Add exactly three wrong answers
 			for (int i = 0; i < 3; i++)
@@ -136,20 +170,32 @@ namespace FlashCards
 				//create a menu entry for that answer
 				var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, false, Content);
 				wrongMenuEntry.OnClick += WrongAnswerSelected;
-				entries.Add(wrongMenuEntry);
+				Entries.Add(wrongMenuEntry);
 
 				//remove the wrong answer from the list so it wont be added again
 				wrongAnswers.RemoveAt(index);
 			}
 
 			//shuffle the answers
-			entries.Shuffle(_rand);
+			Entries.Shuffle(_rand);
+
+			//create the stack layout to hold the possible answers
+			var answersStack = new StackLayout(StackAlignment.Top)
+			{
+				Name = "AnswerStack",
+				Vertical = VerticalAlignment.Center,
+				Horizontal = HorizontalAlignment.Center,
+				Highlightable = false,
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
+				Position = new Point(Resolution.ScreenArea.Center.X, (int)(Resolution.TitleSafeArea.Height * 0.4f))
+			};
 
 			//add all the question entries to the menu
-			foreach (var entry in entries)
+			foreach (var entry in Entries)
 			{
-				AddMenuEntry(entry);
+				answersStack.AddItem(entry);
 			}
+			AddItem(answersStack);
 
 			//load the sound effect to play when time runs out on a question
 			WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
@@ -273,13 +319,9 @@ namespace FlashCards
 				AnsweredCorrect = correctAnswer;
 
 				//Set all the colors of the answers to let the user know which was the correct answer
-				foreach (var entry in MenuEntries.Items)
+				foreach (var entry in Entries)
 				{
-					var questionEntry = entry as QuestionMenuEntry;
-					if (null != questionEntry)
-					{
-						questionEntry.QuestionAnswered = true;
-					}
+					entry.QuestionAnswered = true;
 				}
 
 				if (null != QuestionAnswered)
@@ -291,11 +333,6 @@ namespace FlashCards
 				_autoQuit.Start(1f);
 				TimerScreen.ExitScreen();
 			}
-		}
-
-		public override void Cancelled(object obj, ClickEventArgs e)
-		{
-			//Do nothing if the user cancels a question screen
 		}
 
 		public override void Draw(GameTime gameTime)

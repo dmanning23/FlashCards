@@ -32,6 +32,9 @@ namespace FlashCards
 
 		private Random translationRand = new Random();
 
+		public string Language1 { get; set; }
+		public string Language2 { get; set; }
+
 		#endregion //Properties
 
 		#region Methods
@@ -152,7 +155,11 @@ namespace FlashCards
 		private void ParseCardXmlNodes(XmlNode xmlNode)
 		{
 			//create a new flash card
-			var card = new FlashCard();
+			var card = new FlashCard()
+			{
+				Language1 = this.Language1,
+				Language2 = this.Language2
+			};
 
 			//read it in 
 			XmlFileBuddy.ReadChildNodes(xmlNode, card.ParseChildNode);

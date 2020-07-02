@@ -44,7 +44,7 @@ namespace FlashCards
 		/// <summary>
 		/// Whether or not this is the corerct answer to the question
 		/// </summary>
-		private bool IsCorrectAnswer { get; set; }
+		public bool IsCorrectAnswer { get; set; }
 
 		/// <summary>
 		/// if this is the correct answer, this is the color that will be displayed after a selection is made
@@ -109,11 +109,6 @@ namespace FlashCards
 		{
 			_questionAnswered = false;
 			IsCorrectAnswer = isCorrectAnswer;
-		}
-
-		public override async Task LoadContent(IScreen screen)
-		{
-			await base.LoadContent(screen);
 
 			//Set the colors
 			CorrectColor = new Color(0.0f, 0.7f, 0.0f);

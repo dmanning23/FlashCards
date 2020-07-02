@@ -14,6 +14,9 @@ namespace FlashCards
 
 		public List<Translation> Translations { get; private set; }
 
+		public string Language1 { get; set; }
+		public string Language2 { get; set; }
+
 		#endregion //Properties
 
 		#region Methods
@@ -32,11 +35,33 @@ namespace FlashCards
 			string name = xmlNode.Name;
 			string value = xmlNode.InnerText;
 
-			switch (name)
+			switch (name.ToLower())
 			{
-				case "Words":
+				case "words":
 					{
 						XmlFileBuddy.ReadChildNodes(xmlNode, ParseCardXmlNodes);
+					}
+					break;
+				case "word":
+					{
+						//add a translation with language1
+						Translations.Add(new Translation
+						{
+							Language = Language1,
+							Word = value
+						}
+						);
+					}
+					break;
+				case "translation":
+					{
+						//add a translation with language1
+						Translations.Add(new Translation
+						{
+							Language = Language2,
+							Word = value
+						}
+						);
 					}
 					break;
 				default:

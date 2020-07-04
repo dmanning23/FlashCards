@@ -125,14 +125,20 @@ namespace FlashCards
 			};
 
 			//Add the text asking a question
-			var questionLabel = new Label($"What is the {correctAnswer.Language} word for", Content, FontSize.Small)
+			questionStack.AddItem(new Label($"What is the", Content, FontSize.Small)
 			{
 				Vertical = VerticalAlignment.Center,
 				Horizontal = HorizontalAlignment.Center,
 				Highlightable = false,
 				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-			};
-			questionStack.AddItem(questionLabel);
+			});
+			questionStack.AddItem(new Label($"{correctAnswer.Language} for:", Content, FontSize.Small)
+			{
+				Vertical = VerticalAlignment.Center,
+				Horizontal = HorizontalAlignment.Center,
+				Highlightable = false,
+				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+			});
 
 			//Add all the translations
 			foreach (var translation in question.Translations)

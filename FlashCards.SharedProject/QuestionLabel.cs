@@ -104,8 +104,19 @@ namespace FlashCards
 
 		#region Methods
 
+		public QuestionLabel(bool isCorrectAnswer, string text, IFontBuddy font, IFontBuddy highlightedFont)
+			: base(text, font, highlightedFont)
+		{
+			Init(isCorrectAnswer);
+		}
+
 		public QuestionLabel(bool isCorrectAnswer, string text, ContentManager content, FontSize fontSize = FontSize.Medium)
 			: base(text, content, fontSize)
+		{
+			Init(isCorrectAnswer);
+		}
+
+		private void Init(bool isCorrectAnswer)
 		{
 			_questionAnswered = false;
 			IsCorrectAnswer = isCorrectAnswer;

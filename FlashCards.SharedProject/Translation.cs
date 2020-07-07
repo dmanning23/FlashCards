@@ -56,13 +56,8 @@ namespace FlashCards
 		{
 			xmlFile.WriteStartElement("Translation");
 
-			xmlFile.WriteStartElement("Language");
-			xmlFile.WriteString(Language);
-			xmlFile.WriteEndElement();
-
-			xmlFile.WriteStartElement("Word");
-			xmlFile.WriteString(Word);
-			xmlFile.WriteEndElement();
+			xmlFile.WriteAttributeString("Language", Language);
+			xmlFile.WriteAttributeString("Word", Word);
 
 			xmlFile.WriteEndElement();
 		}

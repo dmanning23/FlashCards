@@ -1,3 +1,4 @@
+using FontBuddyLib;
 using GameTimer;
 using InputHelper;
 using LifeBarBuddy;
@@ -84,6 +85,9 @@ namespace FlashCards
 
 		List<QuestionMenuEntry> Entries { get; set; } = new List<QuestionMenuEntry>();
 
+		IFontBuddy fontSmall;
+		IFontBuddy fontMedium;
+
 		#endregion //Properties
 
 		#region Initialization
@@ -92,9 +96,12 @@ namespace FlashCards
 		/// setup a question screen from a deck of flash cards
 		/// </summary>
 		/// <param name="cards"></param> 
-		public QuestionScreen(Deck cards, ContentManager content = null) :
+		public QuestionScreen(Deck cards, ContentManager content = null, IFontBuddy fontSmall = null, IFontBuddy fontMedium = null) :
 			base("", content)
 		{
+			this.fontSmall = fontSmall;
+			this.fontMedium = fontMedium;
+
 			Deck = cards;
 			QuestionTime = 6f;
 			CoveredByOtherScreens = false;
@@ -113,121 +120,155 @@ namespace FlashCards
 
 		public override async Task LoadContent()
 		{
-			await base.LoadContent();
+			try
+			{
+				await base.LoadContent();
 
-			//create the stack layout to hold the question and words
-			var questionStack = new StackLayout(StackAlignment.Top)
-			{
-				Vertical = VerticalAlignment.Bottom,
-				Horizontal = HorizontalAlignment.Center,
-				Highlightable = false,
-				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-			};
-
-			//Add the text asking a question
-			questionStack.AddItem(new Label($"What is the", Content, FontSize.Small)
-			{
-				Vertical = VerticalAlignment.Center,
-				Horizontal = HorizontalAlignment.Center,
-				Highlightable = false,
-				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-			});
-			questionStack.AddItem(new Label($"{correctAnswer.Language} for:", Content, FontSize.Small)
-			{
-				Vertical = VerticalAlignment.Center,
-				Horizontal = HorizontalAlignment.Center,
-				Highlightable = false,
-				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-			});
-
-			//Add all the translations
-			foreach (var translation in question.Translations)
-			{
-				if (translation.Language != correctAnswer.Language)
+				if (null == fontSmall)
 				{
-					var translationLabel = new Label(translation.Word, Content, FontSize.Medium)
-					{
-						Vertical = VerticalAlignment.Center,
-						Horizontal = HorizontalAlignment.Center,
-						Highlightable = false,
-						TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
-						Scale = 1.2f,
-					};
-					translationLabel.ShrinkToFit(Resolution.TitleSafeArea.Width);
-					questionStack.AddItem(translationLabel);
-					questionStack.AddItem(new Shim(0, 8));
+					fontSmall = new FontBuddyPlus();
+					fontSmall.LoadContent(Content, StyleSheet.SmallFontResource, StyleSheet.UseFontPlus, StyleSheet.SmallFontSize);
 				}
+
+				if (null == fontMedium)
+				{
+					fontMedium = new FontBuddyPlus();
+					fontMedium.LoadContent(Content, StyleSheet.MediumFontResource, StyleSheet.UseFontPlus, StyleSheet.MediumFontSize);
+				}
+
+				//create the stack layout to hold the question and words
+				var questionStack = new StackLayout(StackAlignment.Top)
+				{
+					Vertical = VerticalAlignment.Bottom,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+				};
+
+				//Add the text asking a question
+				questionStack.AddItem(new Label($"What is the", fontSmall)
+				{
+					Vertical = VerticalAlignment.Center,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+				});
+				questionStack.AddItem(new Shim(0, 8));
+				questionStack.AddItem(new Label($"{correctAnswer.Language} for:", fontSmall)
+				{
+					Vertical = VerticalAlignment.Center,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+				});
+				questionStack.AddItem(new Shim(0, 8));
+
+				//Add all the translations
+				foreach (var translation in question.Translations)
+				{
+					if (translation.Language != correctAnswer.Language)
+					{
+						CreateTranslationLabel(fontMedium, questionStack, translation);
+					}
+				}
+
+				questionStack.Position = new Point(Resolution.ScreenArea.Center.X, (int)((Resolution.TitleSafeArea.Height * 0.2f) - (questionStack.Rect.Height * 0.4f)));
+				AddItem(questionStack);
+
+				//create the correct menu entry
+				CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, true, fontMedium);
+				CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
+				Entries.Add(CorrectAnswerEntry);
+
+				//Add exactly three wrong answers
+				for (int i = 0; i < 3; i++)
+				{
+					//get a random wrong answer
+					int index = _rand.Next(wrongAnswers.Count);
+
+					//create a menu entry for that answer
+					var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, false, fontMedium);
+					wrongMenuEntry.OnClick += WrongAnswerSelected;
+					Entries.Add(wrongMenuEntry);
+
+					//remove the wrong answer from the list so it wont be added again
+					wrongAnswers.RemoveAt(index);
+				}
+
+				//shuffle the answers
+				Entries.Shuffle(_rand);
+
+				//create the stack layout to hold the possible answers
+				var answersStack = new StackLayout(StackAlignment.Top)
+				{
+					Name = "AnswerStack",
+					Vertical = VerticalAlignment.Center,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
+					Position = new Point(Resolution.ScreenArea.Center.X, (int)(Resolution.TitleSafeArea.Height * 0.5f))
+				};
+
+				//add all the question entries to the menu
+				foreach (var entry in Entries)
+				{
+					answersStack.AddItem(entry);
+				}
+				AddItem(answersStack);
+
+				//load the sound effect to play when time runs out on a question
+				WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
+
+				meterRenderer = new MeterRenderer(Content, "MeterShader.fx");
+
+				var timerRect = new Rectangle(0, 0, 128, 128);
+
+				CountdownClock = new TimerMeter(QuestionTime, Content, "TimerBackground.png", "TimerMeter.png", "TimerGradient.png", timerRect)
+				{
+					NearEndTime = QuestionTime * 0.5f,
+				};
+
+				//add the meter screen
+				TimerScreen = new MeterScreen(CountdownClock,
+					new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
+					TransitionWipeType.PopLeft,
+					Content,
+					VerticalAlignment.Top,
+					HorizontalAlignment.Left);
+
+				await ScreenManager.AddScreen(TimerScreen);
+
+				//make the player stare at this screen for 2 seconds before they can quit
+				_autoQuit.Start(QuestionTime);
+				CountdownClock.Reset();
 			}
-
-			questionStack.Position = new Point(Resolution.ScreenArea.Center.X, (int)((Resolution.TitleSafeArea.Height * 0.2f) - (questionStack.Rect.Height * 0.5f)));
-			AddItem(questionStack);
-
-			//create the correct menu entry
-			CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, true, Content);
-			CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
-			Entries.Add(CorrectAnswerEntry);
-
-			//Add exactly three wrong answers
-			for (int i = 0; i < 3; i++)
+			catch (Exception ex)
 			{
-				//get a random wrong answer
-				int index = _rand.Next(wrongAnswers.Count);
-
-				//create a menu entry for that answer
-				var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, false, Content);
-				wrongMenuEntry.OnClick += WrongAnswerSelected;
-				Entries.Add(wrongMenuEntry);
-
-				//remove the wrong answer from the list so it wont be added again
-				wrongAnswers.RemoveAt(index);
+				await ScreenManager.ErrorScreen(ex);
 			}
+		}
 
-			//shuffle the answers
-			Entries.Shuffle(_rand);
-
-			//create the stack layout to hold the possible answers
-			var answersStack = new StackLayout(StackAlignment.Top)
+		private void CreateTranslationLabel(IFontBuddy font, StackLayout questionStack, Translation translation)
+		{
+			try
 			{
-				Name = "AnswerStack",
-				Vertical = VerticalAlignment.Center,
-				Horizontal = HorizontalAlignment.Center,
-				Highlightable = false,
-				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
-				Position = new Point(Resolution.ScreenArea.Center.X, (int)(Resolution.TitleSafeArea.Height * 0.4f))
-			};
-
-			//add all the question entries to the menu
-			foreach (var entry in Entries)
-			{
-				answersStack.AddItem(entry);
+				var translationLabel = new Label(translation.Word, font)
+				{
+					Vertical = VerticalAlignment.Center,
+					Horizontal = HorizontalAlignment.Center,
+					Highlightable = false,
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
+					Scale = 1.2f,
+				};
+				translationLabel.ShrinkToFit(Resolution.TitleSafeArea.Width);
+				questionStack.AddItem(translationLabel);
+				questionStack.AddItem(new Shim(0, 8));
 			}
-			AddItem(answersStack);
-
-			//load the sound effect to play when time runs out on a question
-			WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
-
-			meterRenderer = new MeterRenderer(Content, "MeterShader.fx");
-
-			var timerRect = new Rectangle(0, 0, 128, 128);
-
-			CountdownClock = new TimerMeter(QuestionTime, Content, "TimerBackground.png", "TimerMeter.png", "TimerGradient.png", timerRect)
+			catch (Exception ex)
 			{
-				NearEndTime = QuestionTime * 0.5f,
-			};
-
-			//add the meter screen
-			TimerScreen = new MeterScreen(CountdownClock,
-				new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
-				TransitionWipeType.PopLeft,
-				Content,
-				VerticalAlignment.Top,
-				HorizontalAlignment.Left);
-
-			await ScreenManager.AddScreen(TimerScreen);
-
-			//make the player stare at this screen for 2 seconds before they can quit
-			_autoQuit.Start(QuestionTime);
-			CountdownClock.Reset();
+				ScreenManager.ErrorScreen(ex);
+				throw new Exception($"Error creating menu entry for {translation.Word}", ex);
+			}
 		}
 
 		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, bool correctAnswer, ContentManager content)
@@ -236,6 +277,22 @@ namespace FlashCards
 			{
 				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
 			};
+		}
+
+		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, bool correctAnswer, IFontBuddy font)
+		{
+			try
+			{
+				return new QuestionMenuEntry(text, correctAnswer, font)
+				{
+					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
+				};
+			}
+			catch (Exception ex)
+			{
+				ScreenManager.ErrorScreen(ex);
+				throw new Exception($"Error creating menu entry for {text}", ex);
+			}
 		}
 
 		public override void ExitScreen()

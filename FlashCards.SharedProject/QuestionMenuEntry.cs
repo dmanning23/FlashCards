@@ -43,8 +43,19 @@ namespace FlashCards
 
 		#region Methods
 
+		public QuestionMenuEntry(string text, bool correctAnswer, IFontBuddy font)
+			: base(text, font)
+		{
+			Init(correctAnswer);
+		}
+
 		public QuestionMenuEntry(string text, bool correctAnswer, ContentManager content)
 			: base(text, content)
+		{
+			Init(correctAnswer);
+		}
+
+		private void Init(bool correctAnswer)
 		{
 			CorrectAnswer = correctAnswer;
 			Label.ShrinkToFit(Resolution.TitleSafeArea.Width);
@@ -74,7 +85,11 @@ namespace FlashCards
 
 		public override Label CreateLabel(IFontBuddy font, IFontBuddy highlightedFont = null)
 		{
-			throw new NotImplementedException();
+			return new QuestionLabel(CorrectAnswer, Text, font, highlightedFont)
+			{
+				Vertical = VerticalAlignment.Center,
+				Horizontal = HorizontalAlignment.Center
+			};
 		}
 
 		public override Label CreateLabel(Label inst)

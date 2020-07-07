@@ -140,6 +140,11 @@ namespace FlashCards
 					Category = value;
 				}
 				break;
+				case "FlashCards":
+				{
+					ReadChildNodes(xmlNode, ParseFlashCardXmlNodes);
+				}
+				break;
 				case "Cards":
 				{
 					ReadChildNodes(xmlNode, ParseCardXmlNodes);
@@ -150,6 +155,22 @@ namespace FlashCards
 					throw new Exception("unknown XML node: " + name);
 				}
 			}
+		}
+
+		private void ParseFlashCardXmlNodes(XmlNode xmlNode)
+		{
+			//create a new flash card
+			var card = new FlashCard()
+			{
+				Language1 = this.Language1,
+				Language2 = this.Language2
+			};
+
+			//read it in 
+			XmlFileBuddy.ReadChildNodes(xmlNode, card.ParseCardXmlNodes);
+
+			//store the card
+			Cards.Add(card);
 		}
 
 		private void ParseCardXmlNodes(XmlNode xmlNode)

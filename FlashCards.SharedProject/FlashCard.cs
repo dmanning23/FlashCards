@@ -71,7 +71,7 @@ namespace FlashCards
 			}
 		}
 
-		private void ParseCardXmlNodes(XmlNode xmlNode)
+		public void ParseCardXmlNodes(XmlNode xmlNode)
 		{
 			//create a new translation
 			var translation = new Translation();

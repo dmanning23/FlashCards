@@ -62,6 +62,11 @@ namespace FlashCards
 			xmlFile.WriteEndElement();
 		}
 
+		public override string ToString()
+		{
+			return $"{Language}: {Word}";
+		}
+
 		#endregion //Methods
 	}
 }

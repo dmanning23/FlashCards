@@ -51,13 +51,15 @@ namespace FlashCards
 		/// </summary>
 		private bool AnswerChosen { get; set; }
 
-		FlashCard question;
+		FlashCard correctQuestion;
 
-		protected FlashCard Question => question;
+		protected FlashCard CorrectQuestion => correctQuestion;
 
 		Translation correctAnswer;
 
 		protected Translation CorrectAnswer => correctAnswer;
+
+		List<FlashCard> wrongQuestions;
 
 		List<Translation> wrongAnswers;
 
@@ -115,7 +117,7 @@ namespace FlashCards
 			AnswerChosen = false;
 			TimeRanOut = false;
 
-			cards.GetQuestion(out question, out correctAnswer, out wrongAnswers);
+			cards.GetQuestion(out correctQuestion, out correctAnswer, out wrongQuestions, out wrongAnswers);
 		}
 
 		public override async Task LoadContent()
@@ -164,7 +166,7 @@ namespace FlashCards
 				questionStack.AddItem(new Shim(0, 8));
 
 				//Add all the translations
-				foreach (var translation in question.Translations)
+				foreach (var translation in correctQuestion.Translations)
 				{
 					if (translation.Language != correctAnswer.Language)
 					{
@@ -176,7 +178,7 @@ namespace FlashCards
 				AddItem(questionStack);
 
 				//create the correct menu entry
-				CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, true, fontMedium);
+				CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, correctQuestion, true, fontMedium);
 				CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
 				Entries.Add(CorrectAnswerEntry);
 
@@ -187,7 +189,7 @@ namespace FlashCards
 					int index = _rand.Next(wrongAnswers.Count);
 
 					//create a menu entry for that answer
-					var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, false, fontMedium);
+					var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, wrongQuestions[index], false, fontMedium);
 					wrongMenuEntry.OnClick += WrongAnswerSelected;
 					Entries.Add(wrongMenuEntry);
 
@@ -271,19 +273,19 @@ namespace FlashCards
 			}
 		}
 
-		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, bool correctAnswer, ContentManager content)
+		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, FlashCard flashCard, bool correctAnswer, ContentManager content)
 		{
-			return new QuestionMenuEntry(text, correctAnswer, content)
+			return new QuestionMenuEntry(text, flashCard, correctAnswer, content)
 			{
 				TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
 			};
 		}
 
-		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, bool correctAnswer, IFontBuddy font)
+		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, FlashCard flashCard, bool correctAnswer, IFontBuddy font)
 		{
 			try
 			{
-				return new QuestionMenuEntry(text, correctAnswer, font)
+				return new QuestionMenuEntry(text, flashCard, correctAnswer, font)
 				{
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopBottom),
 				};
@@ -317,7 +319,10 @@ namespace FlashCards
 		/// </summary>
 		private void CorrectAnswerSelected(object sender, ClickEventArgs e)
 		{
-			AnswerSelected(true);
+			if (sender is QuestionMenuEntry questionMenuEntry)
+			{
+				AnswerSelected(true, questionMenuEntry.FlashCard);
+			}
 		}
 
 		/// <summary>
@@ -325,7 +330,10 @@ namespace FlashCards
 		/// </summary>
 		private void WrongAnswerSelected(object sender, ClickEventArgs e)
 		{
-			AnswerSelected(false);
+			if (sender is QuestionMenuEntry questionMenuEntry)
+			{
+				AnswerSelected(false, questionMenuEntry.FlashCard);
+			}
 		}
 
 		#endregion //Handle Input
@@ -351,7 +359,7 @@ namespace FlashCards
 					if (!AnswerChosen)
 					{
 						//the timer ran out but the user hadn't picked an answer.  That counts as "wrong"
-						AnswerSelected(false);
+						AnswerSelected(false, correctQuestion);
 
 						//play the "wrong" sound effect
 						WrongAnswerSound.Play();
@@ -373,7 +381,7 @@ namespace FlashCards
 		/// The user selected an answer.
 		/// Set the flags, menu entry colors, and start timer.
 		/// </summary>
-		private void AnswerSelected(bool correctAnswer)
+		private void AnswerSelected(bool correctAnswer, FlashCard selectedAnswer)
 		{
 			if (!AnswerChosen)
 			{
@@ -389,7 +397,7 @@ namespace FlashCards
 
 				if (null != QuestionAnswered)
 				{
-					QuestionAnswered(this, new QuestionEventArgs(AnsweredCorrect));
+					QuestionAnswered(this, new QuestionEventArgs(AnsweredCorrect, correctQuestion, selectedAnswer));
 				}
 
 				//start the timer to exit this screen

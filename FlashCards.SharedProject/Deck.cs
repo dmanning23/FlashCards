@@ -74,7 +74,7 @@ namespace FlashCards
 		/// <param name="question"></param>
 		/// <param name="correctAnswer"></param>
 		/// <param name="wrongAnswers"></param>
-		public void GetQuestion(out FlashCard questionCard, out Translation correctTranslation, out List<Translation> wrongTranslations)
+		public void GetQuestion(out FlashCard questionCard, out Translation correctTranslation, out List<FlashCard> wrongQuestionCards, out List<Translation> wrongTranslations)
 		{
 			//grab a random flash card to be the question
 			var cardIndex = questionRand.Next();
@@ -86,6 +86,7 @@ namespace FlashCards
 			correctTranslation = correctAnswer;
 
 			//add all the possible incorrect answers
+			wrongQuestionCards = new List<FlashCard>();
 			wrongTranslations = new List<Translation>();
 			for (int i = 0; i < Cards.Count; i++)
 			{
@@ -96,6 +97,7 @@ namespace FlashCards
 					var wrongAnswer = wrongCard.Translations.FirstOrDefault(x => x.Language == correctAnswer.Language);
 					if (null != wrongAnswer)
 					{
+						wrongQuestionCards.Add(wrongCard);
 						wrongTranslations.Add(wrongAnswer);
 					}
 				}

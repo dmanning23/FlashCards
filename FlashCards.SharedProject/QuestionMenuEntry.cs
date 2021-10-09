@@ -3,7 +3,6 @@ using MenuBuddy;
 using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
 using System;
-using System.Threading.Tasks;
 
 namespace FlashCards
 {
@@ -12,13 +11,9 @@ namespace FlashCards
 	/// </summary>
 	public class QuestionMenuEntry : MenuEntry
 	{
-		#region Fields
+		#region Properties
 
 		private QuestionLabel _label;
-
-		#endregion //Fields
-
-		#region Properties
 
 		/// <summary>
 		/// Whether or not this is the corerct answer to the question
@@ -39,24 +34,27 @@ namespace FlashCards
 
 		private bool CorrectAnswer { get; set; }
 
+		public FlashCard FlashCard { get; set; }
+
 		#endregion //Properties
 
 		#region Methods
 
-		public QuestionMenuEntry(string text, bool correctAnswer, IFontBuddy font)
+		public QuestionMenuEntry(string text, FlashCard flashCard, bool correctAnswer, IFontBuddy font)
 			: base(text, font)
 		{
-			Init(correctAnswer);
+			Init(flashCard, correctAnswer);
 		}
 
-		public QuestionMenuEntry(string text, bool correctAnswer, ContentManager content)
+		public QuestionMenuEntry(string text, FlashCard flashCard, bool correctAnswer, ContentManager content)
 			: base(text, content)
 		{
-			Init(correctAnswer);
+			Init(flashCard, correctAnswer);
 		}
 
-		private void Init(bool correctAnswer)
+		private void Init(FlashCard flashCard, bool correctAnswer)
 		{
+			FlashCard = flashCard;
 			CorrectAnswer = correctAnswer;
 			Label.ShrinkToFit(Resolution.TitleSafeArea.Width);
 

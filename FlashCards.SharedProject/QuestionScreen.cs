@@ -87,8 +87,8 @@ namespace FlashCards
 
 		List<QuestionMenuEntry> Entries { get; set; } = new List<QuestionMenuEntry>();
 
-		IFontBuddy fontSmall;
-		IFontBuddy fontMedium;
+		protected IFontBuddy FontSmall { get; private set; }
+		protected IFontBuddy FontMedium { get; private set; }
 
 		#endregion //Properties
 
@@ -101,8 +101,8 @@ namespace FlashCards
 		public QuestionScreen(Deck cards, ContentManager content = null, IFontBuddy fontSmall = null, IFontBuddy fontMedium = null) :
 			base("", content)
 		{
-			this.fontSmall = fontSmall;
-			this.fontMedium = fontMedium;
+			this.FontSmall = fontSmall;
+			this.FontMedium = fontMedium;
 
 			Deck = cards;
 			QuestionTime = 6f;
@@ -126,16 +126,16 @@ namespace FlashCards
 			{
 				await base.LoadContent();
 
-				if (null == fontSmall)
+				if (null == FontSmall)
 				{
-					fontSmall = new FontBuddyPlus();
-					fontSmall.LoadContent(Content, StyleSheet.SmallFontResource, StyleSheet.UseFontPlus, StyleSheet.SmallFontSize);
+					FontSmall = new FontBuddyPlus();
+					FontSmall.LoadContent(Content, StyleSheet.SmallFontResource, StyleSheet.UseFontPlus, StyleSheet.SmallFontSize);
 				}
 
-				if (null == fontMedium)
+				if (null == FontMedium)
 				{
-					fontMedium = new FontBuddyPlus();
-					fontMedium.LoadContent(Content, StyleSheet.MediumFontResource, StyleSheet.UseFontPlus, StyleSheet.MediumFontSize);
+					FontMedium = new FontBuddyPlus();
+					FontMedium.LoadContent(Content, StyleSheet.MediumFontResource, StyleSheet.UseFontPlus, StyleSheet.MediumFontSize);
 				}
 
 				//create the stack layout to hold the question and words
@@ -148,7 +148,7 @@ namespace FlashCards
 				};
 
 				//Add the text asking a question
-				questionStack.AddItem(new Label($"What is the", fontSmall)
+				questionStack.AddItem(new Label($"What is the", FontSmall)
 				{
 					Vertical = VerticalAlignment.Center,
 					Horizontal = HorizontalAlignment.Center,
@@ -156,7 +156,7 @@ namespace FlashCards
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
 				});
 				questionStack.AddItem(new Shim(0, 8));
-				questionStack.AddItem(new Label($"{correctAnswer.Language} for:", fontSmall)
+				questionStack.AddItem(new Label($"{correctAnswer.Language} for:", FontSmall)
 				{
 					Vertical = VerticalAlignment.Center,
 					Horizontal = HorizontalAlignment.Center,
@@ -170,7 +170,7 @@ namespace FlashCards
 				{
 					if (translation.Language != correctAnswer.Language)
 					{
-						CreateTranslationLabel(fontMedium, questionStack, translation);
+						CreateTranslationLabel(FontMedium, questionStack, translation);
 					}
 				}
 
@@ -178,7 +178,7 @@ namespace FlashCards
 				AddItem(questionStack);
 
 				//create the correct menu entry
-				CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, correctQuestion, true, fontMedium);
+				CorrectAnswerEntry = CreateQuestionMenuEntry(correctAnswer.Word, correctQuestion, true, FontMedium);
 				CorrectAnswerEntry.OnClick += CorrectAnswerSelected;
 				Entries.Add(CorrectAnswerEntry);
 
@@ -189,7 +189,7 @@ namespace FlashCards
 					int index = _rand.Next(wrongAnswers.Count);
 
 					//create a menu entry for that answer
-					var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, wrongQuestions[index], false, fontMedium);
+					var wrongMenuEntry = CreateQuestionMenuEntry(wrongAnswers[index].Word, wrongQuestions[index], false, FontMedium);
 					wrongMenuEntry.OnClick += WrongAnswerSelected;
 					Entries.Add(wrongMenuEntry);
 

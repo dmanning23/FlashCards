@@ -1,4 +1,5 @@
 using FilenameBuddy;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Xml;
 using TetrisRandomizer;
 using XmlBuddy;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// A pile of flash cards to run through.
@@ -124,9 +125,9 @@ namespace FlashCards
 
 		#region File Parsing
 
-		public override void ReadXmlFile()
+		public override void ReadXmlFile(ContentManager content = null)
 		{
-			base.ReadXmlFile();
+			base.ReadXmlFile(content);
 			questionRand.MaxNum = Cards.Count;
 		}
 

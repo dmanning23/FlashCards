@@ -6,15 +6,17 @@
     <SharedGUID>b33b759d-65b2-4571-b53a-6d91e8075570</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>FlashCards.SharedProject</Import_RootNamespace>
+    <Import_RootNamespace>FlashCards.Core</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Deck.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlashCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OverlayScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionLabel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionMenuEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)QuestionScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QuestionStateMachine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Translation.cs" />
   </ItemGroup>
 </Project>

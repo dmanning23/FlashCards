@@ -1,9 +1,11 @@
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Xml;
 using XmlBuddy;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// a single flash card that represents one word and all the available translations for that word.
@@ -90,12 +92,38 @@ namespace FlashCards
 		public void WriteXmlNodes(XmlTextWriter xmlFile)
 		{
 			//write out all the cards
-			xmlFile.WriteStartElement("Words");
+			xmlFile.WriteStartElement("Cards");
 			foreach (var translation in Translations)
 			{
 				translation.WriteXmlNodes(xmlFile);
 			}
 			xmlFile.WriteEndElement();
+		}
+
+		public SoundEffect LoadSoundEffect(string language, ContentManager content)
+		{
+			//Find the english word
+			var englishWord = string.Empty;
+			foreach (var translation in Translations)
+			{
+				if (translation.Language == "English")
+				{
+					englishWord = translation.Word;
+					break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(englishWord))
+			{
+				return content.Load<SoundEffect>($"TTS/{language}/{englishWord}");
+			}
+
+			return null;
+		}
+
+		public string OtherLanguage(string language)
+		{
+			return (language == Language1) ? Language2 : Language1;
 		}
 
 		#endregion //Methods

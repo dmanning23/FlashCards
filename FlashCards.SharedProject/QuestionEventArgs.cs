@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	public class QuestionEventArgs : EventArgs
     {

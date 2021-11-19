@@ -1,10 +1,11 @@
 using FontBuddyLib;
 using MenuBuddy;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using ResolutionBuddy;
 using System;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// This is a menu entry that can change color depending on whether the answer is wrong or right
@@ -13,7 +14,7 @@ namespace FlashCards
 	{
 		#region Properties
 
-		private QuestionLabel _label;
+		public QuestionLabel QuestionLabel => Label as QuestionLabel;
 
 		/// <summary>
 		/// Whether or not this is the corerct answer to the question
@@ -22,7 +23,7 @@ namespace FlashCards
 		{
 			set
 			{
-				_label.QuestionAnswered = value;
+				QuestionLabel.QuestionAnswered = value;
 
 				if (value)
 				{
@@ -34,7 +35,9 @@ namespace FlashCards
 
 		private bool CorrectAnswer { get; set; }
 
-		public FlashCard FlashCard { get; set; }
+		public FlashCard FlashCard { get; private set; }
+
+		public SoundEffect SoundEffect { get; private set; }
 
 		#endregion //Properties
 
@@ -58,17 +61,16 @@ namespace FlashCards
 			CorrectAnswer = correctAnswer;
 			Label.ShrinkToFit(Resolution.TitleSafeArea.Width);
 
-			_label = Label as QuestionLabel;
-			_label.IsCorrectAnswer = correctAnswer;
-			OnClick += _label.OnAnswer;
+			QuestionLabel.IsCorrectAnswer = correctAnswer;
+			OnClick += QuestionLabel.OnAnswer;
 			Highlightable = false;
 
 			//Setting the resource name here will cause the correct sound effect to be loaded an played when this button is clicked
 			ClickedSound = correctAnswer ? "CorrectAnswer" : "WrongAnswer";
 
-			if (Rect.Width < _label.Rect.Width)
+			if (Rect.Width < QuestionLabel.Rect.Width)
 			{
-				Size = new Microsoft.Xna.Framework.Vector2(_label.Rect.Width, Size.Y);
+				Size = new Microsoft.Xna.Framework.Vector2(QuestionLabel.Rect.Width, Size.Y);
 			}
 		}
 
@@ -93,6 +95,11 @@ namespace FlashCards
 		public override Label CreateLabel(Label inst)
 		{
 			throw new NotImplementedException();
+		}
+
+		public void LoadSoundEffect(string language, ContentManager content)
+		{
+			SoundEffect = FlashCard.LoadSoundEffect(language, content);
 		}
 
 		#endregion //Methods

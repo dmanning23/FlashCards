@@ -1,7 +1,6 @@
 using FontBuddyLib;
 using GameTimer;
 using InputHelper;
-using LifeBarBuddy;
 using ListExtensions;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// Used to communicate with the combat engine if the user gave a correct answer
@@ -32,7 +31,7 @@ namespace FlashCards
 		/// this timer is used to automatically choose an answer
 		/// also reused to display the correct ansnwer and exit the screen
 		/// </summary>
-		private CountdownTimer _autoQuit = new CountdownTimer();
+		public CountdownTimer AutoQuit { get; set; } = new CountdownTimer();
 
 		private Random _rand = new Random();
 
@@ -49,19 +48,19 @@ namespace FlashCards
 		/// <summary>
 		/// Flag set when the user chooses an answer, either right or wrong
 		/// </summary>
-		private bool AnswerChosen { get; set; }
+		public bool AnswerChosen { get; private set; }
 
-		FlashCard correctQuestion;
+		private FlashCard correctQuestion;
 
 		protected FlashCard CorrectQuestion => correctQuestion;
 
-		Translation correctAnswer;
+		private Translation correctAnswer;
 
 		protected Translation CorrectAnswer => correctAnswer;
 
-		List<FlashCard> wrongQuestions;
+		private List<FlashCard> wrongQuestions;
 
-		List<Translation> wrongAnswers;
+		private List<Translation> wrongAnswers;
 
 		/// <summary>
 		/// the correct answer
@@ -77,18 +76,25 @@ namespace FlashCards
 
 		protected Deck Deck { get; set; }
 
-		private bool TimeRanOut { get; set; }
+		public bool TimeRanOut { get; private set; }
 
-		ITimerMeter CountdownClock { get; set; }
-
-		IMeterRenderer meterRenderer;
-
-		IScreen TimerScreen { get; set; }
-
-		List<QuestionMenuEntry> Entries { get; set; } = new List<QuestionMenuEntry>();
+		public List<QuestionMenuEntry> Entries { get; private set; } = new List<QuestionMenuEntry>();
 
 		protected IFontBuddy FontSmall { get; private set; }
 		protected IFontBuddy FontMedium { get; private set; }
+
+		OverlayScreen OverlayScreen { get; set; }
+
+		/// <summary>
+		/// The sound effect that says "What is the {language} word for..."
+		/// </summary>
+		SoundEffect QuestionSoundEffect { get; set; }
+
+		public SoundEffect QuestionWordSoundEffect { get; private set; }
+
+		public QuestionLabel QuestionWordLabel { get; private set; }
+
+		public QuestionStateMachine QuestionStateMachine { get; private set; }
 
 		#endregion //Properties
 
@@ -195,6 +201,7 @@ namespace FlashCards
 
 					//remove the wrong answer from the list so it wont be added again
 					wrongAnswers.RemoveAt(index);
+					wrongQuestions.RemoveAt(index);
 				}
 
 				//shuffle the answers
@@ -221,32 +228,127 @@ namespace FlashCards
 				//load the sound effect to play when time runs out on a question
 				WrongAnswerSound = Content.Load<SoundEffect>("WrongAnswer");
 
-				meterRenderer = new MeterRenderer(Content, "MeterShader.fx");
-
-				var timerRect = new Rectangle(0, 0, 128, 128);
-
-				CountdownClock = new TimerMeter(QuestionTime, Content, "TimerBackground.png", "TimerMeter.png", "TimerGradient.png", timerRect)
-				{
-					NearEndTime = QuestionTime * 0.5f,
-				};
-
-				//add the meter screen
-				TimerScreen = new MeterScreen(CountdownClock,
-					new Point((int)Resolution.TitleSafeArea.Left, (int)Resolution.TitleSafeArea.Top),
-					TransitionWipeType.PopLeft,
-					Content,
-					VerticalAlignment.Top,
-					HorizontalAlignment.Left);
-
-				await ScreenManager.AddScreen(TimerScreen);
-
-				//make the player stare at this screen for 2 seconds before they can quit
-				_autoQuit.Start(QuestionTime);
-				CountdownClock.Reset();
+				AutoQuit.Stop();
 			}
 			catch (Exception ex)
 			{
 				await ScreenManager.ErrorScreen(ex);
+			}
+
+			//Try to load the sound effects
+			try
+			{
+				QuestionSoundEffect = Content.Load<SoundEffect>($"TTS//{correctAnswer.Language}Question");
+			}
+			catch (Exception)
+			{
+				//ignore for now
+			}
+
+			//load the correct answer sound effect
+			try
+			{
+				QuestionWordSoundEffect = CorrectQuestion.LoadSoundEffect(correctQuestion.OtherLanguage(correctAnswer.Language), Content);
+			}
+			catch (Exception)
+			{
+				//ignore for now
+			}
+
+			//load the sound effect for each question
+			for (int i = 0; i < Entries.Count; i++)
+			{
+				try
+				{
+					Entries[i].LoadSoundEffect(correctAnswer.Language, Content);
+				}
+				catch (Exception)
+				{
+					//ignore for now
+				}
+			}
+
+			QuestionStateMachine = new QuestionStateMachine();
+			QuestionStateMachine.StartTimer(Transition.OnTime + 0.1f);
+			QuestionStateMachine.StateChangedEvent += QuestionStateMachine_StateChangedEvent;
+		}
+
+		private void QuestionStateMachine_StateChangedEvent(object sender, StateMachineBuddy.StateChangeEventArgs e)
+		{
+			switch (e.NewState)
+			{
+				case (int)QuestionStateMachine.QuestionState.AskingQuestion:
+					{
+						//TODO: dim the music
+
+						//play the sound that asks the question
+						PlaySoundEffect(QuestionSoundEffect);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.QuestionWord:
+					{
+						//Make sure all the colors are rest
+						ResetColors();
+
+						//Set the color of the word being spoken to yellow
+						SetLabelOverride(QuestionWordLabel);
+
+						//play the sound that asks the question
+						PlaySoundEffect(QuestionWordSoundEffect, 0.4f);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.FirstAnswer:
+					{
+						ResetColors();
+						SetLabelOverride(Entries[0].QuestionLabel);
+						PlaySoundEffect(Entries[0].SoundEffect, 0.2f);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.SecondAnswer:
+					{
+						ResetColors();
+						SetLabelOverride(Entries[1].QuestionLabel);
+						PlaySoundEffect(Entries[1].SoundEffect, 0.2f);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.ThirdAnswer:
+					{
+						ResetColors();
+						SetLabelOverride(Entries[2].QuestionLabel);
+						PlaySoundEffect(Entries[2].SoundEffect, 0.2f);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.FourthAnswer:
+					{
+						ResetColors();
+						SetLabelOverride(Entries[3].QuestionLabel);
+						PlaySoundEffect(Entries[3].SoundEffect, 0.2f);
+					}
+					break;
+				case (int)QuestionStateMachine.QuestionState.Done:
+					{
+						ResetColors();
+
+						//If the user hasn't answered the question, add the overlay screen
+						if (!AnswerChosen)
+						{
+							if (null == OverlayScreen)
+							{
+								OverlayScreen = new OverlayScreen(this, Content);
+								ScreenManager.AddScreen(OverlayScreen);
+							}
+						}
+					}
+					break;
+			}
+		}
+
+		public void PlaySoundEffect(SoundEffect soundEffect, float pause = 0.1f)
+		{
+			if (null != soundEffect)
+			{
+				QuestionStateMachine.StartTimer((float)soundEffect.Duration.TotalSeconds + pause);
+				soundEffect.Play();
 			}
 		}
 
@@ -254,7 +356,7 @@ namespace FlashCards
 		{
 			try
 			{
-				var translationLabel = new Label(translation.Word, font)
+				QuestionWordLabel = new QuestionLabel(false, translation.Word, font, font)
 				{
 					Vertical = VerticalAlignment.Center,
 					Horizontal = HorizontalAlignment.Center,
@@ -262,8 +364,8 @@ namespace FlashCards
 					TransitionObject = new WipeTransitionObject(TransitionWipeType.PopTop),
 					Scale = 1.2f,
 				};
-				translationLabel.ShrinkToFit(Resolution.TitleSafeArea.Width);
-				questionStack.AddItem(translationLabel);
+				QuestionWordLabel.ShrinkToFit(Resolution.TitleSafeArea.Width);
+				questionStack.AddItem(QuestionWordLabel);
 				questionStack.AddItem(new Shim(0, 8));
 			}
 			catch (Exception ex)
@@ -271,6 +373,24 @@ namespace FlashCards
 				ScreenManager.ErrorScreen(ex);
 				throw new Exception($"Error creating menu entry for {translation.Word}", ex);
 			}
+		}
+
+		private void ResetColors()
+		{
+			QuestionWordLabel.OverrideColor = null;
+			foreach (var entry in Entries)
+			{
+				entry.QuestionLabel.OverrideColor = null;
+				entry.QuestionLabel.Scale = 1f;
+			}
+
+			QuestionWordLabel.Scale = 1.2f;
+		}
+
+		public void SetLabelOverride(QuestionLabel label)
+		{
+			label.OverrideColor = Color.Yellow;
+			label.Scale = 1.5f;
 		}
 
 		protected virtual QuestionMenuEntry CreateQuestionMenuEntry(string text, FlashCard flashCard, bool correctAnswer, ContentManager content)
@@ -300,7 +420,10 @@ namespace FlashCards
 		public override void ExitScreen()
 		{
 			base.ExitScreen();
-			TimerScreen.ExitScreen();
+			if (null != OverlayScreen)
+			{
+				OverlayScreen.ExitScreen();
+			}
 		}
 
 		public override void Dispose()
@@ -343,17 +466,14 @@ namespace FlashCards
 		public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
 		{
 			//update the timers
-			_autoQuit.Update(gameTime);
-
-			if (null != CountdownClock)
-			{
-				CountdownClock.Update(gameTime);
-			}
+			AutoQuit.Update(gameTime);
 
 			//check if we been here long enough
 			if (IsActive)
 			{
-				if (!_autoQuit.HasTimeRemaining)
+				QuestionStateMachine.Update(gameTime);
+
+				if (!AutoQuit.Paused && !AutoQuit.HasTimeRemaining)
 				{
 					//has the user picked an answer?
 					if (!AnswerChosen)
@@ -383,6 +503,8 @@ namespace FlashCards
 		/// </summary>
 		private void AnswerSelected(bool correctAnswer, FlashCard selectedAnswer)
 		{
+			QuestionStateMachine.Done();
+
 			if (!AnswerChosen)
 			{
 				//set flags
@@ -401,8 +523,12 @@ namespace FlashCards
 				}
 
 				//start the timer to exit this screen
-				_autoQuit.Start(1f);
-				TimerScreen.ExitScreen();
+				AutoQuit.Start(1f);
+
+				if (null != OverlayScreen)
+				{
+					OverlayScreen.ExitScreen();
+				}
 			}
 		}
 
@@ -413,23 +539,6 @@ namespace FlashCards
 			ScreenManager.SpriteBatchEnd();
 
 			base.Draw(gameTime);
-
-			//draw the meters
-			meterRenderer.Alpha = Transition.Alpha;
-			meterRenderer.SpriteBatchBegin(ScreenManager.SpriteBatch, Resolution.TransformationMatrix());
-			if (!AnswerChosen)
-			{
-				CountdownClock.Draw(_autoQuit.RemainingTime, meterRenderer, ScreenManager.SpriteBatch);
-			}
-			else if (TimeRanOut)
-			{
-				CountdownClock.Draw(0f, meterRenderer, ScreenManager.SpriteBatch);
-			}
-			else
-			{
-				CountdownClock.Draw(QuestionTime, meterRenderer, ScreenManager.SpriteBatch);
-			}
-			ScreenManager.SpriteBatch.End();
 		}
 
 		#endregion //Methods

@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		FlashCards.nuspec = FlashCards.nuspec
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FlashCards.SharedProject", "FlashCards.SharedProject\FlashCards.SharedProject.shproj", "{B33B759D-65B2-4571-B53A-6D91E8075570}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FlashCards.Core", "FlashCards.SharedProject\FlashCards.Core.shproj", "{B33B759D-65B2-4571-B53A-6D91E8075570}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCards.WindowsDX", "FlashCards.WindowsDX\FlashCards.WindowsDX.csproj", "{54D68257-6F4B-4919-A33B-BBFDD01D8D0E}"
 EndProject

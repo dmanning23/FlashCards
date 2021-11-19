@@ -3,9 +3,8 @@ using InputHelper;
 using MenuBuddy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System.Threading.Tasks;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// This is a menu entry that can change color depending on whether the answer is wrong or right
@@ -65,6 +64,8 @@ namespace FlashCards
 		/// If this is the wrong answer but not selected, this is the color that will be used
 		/// </summary>
 		private Color WrongNotSelectedColor { get; set; }
+
+		public Color? OverrideColor { get; set; }
 
 		/// <summary>
 		/// Whether or not the question has been answered.
@@ -171,7 +172,11 @@ namespace FlashCards
 
 		protected override Color GetColor()
 		{
-			if (QuestionAnswered)
+			if (OverrideColor.HasValue)
+			{
+				return OverrideColor.Value;
+			}
+			else if (QuestionAnswered)
 			{
 				return CurrentColor;
 			}

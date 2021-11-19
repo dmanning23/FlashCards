@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace FlashCards
+namespace FlashCards.Core
 {
 	/// <summary>
 	/// This is a translation of a word into one language

@@ -96,6 +96,8 @@ namespace FlashCards.Core
 
 		public QuestionStateMachine QuestionStateMachine { get; private set; }
 
+		public float SoundVolume { get; set; } = 1f;
+
 		#endregion //Properties
 
 		#region Initialization
@@ -240,7 +242,7 @@ namespace FlashCards.Core
 			{
 				QuestionSoundEffect = Content.Load<SoundEffect>($"TTS//{correctAnswer.Language}Question");
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				//ignore for now
 			}
@@ -250,7 +252,7 @@ namespace FlashCards.Core
 			{
 				QuestionWordSoundEffect = CorrectQuestion.LoadSoundEffect(correctQuestion.OtherLanguage(correctAnswer.Language), Content);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				//ignore for now
 			}
@@ -262,7 +264,7 @@ namespace FlashCards.Core
 				{
 					Entries[i].LoadSoundEffect(correctAnswer.Language, Content);
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
 					//ignore for now
 				}
@@ -279,8 +281,6 @@ namespace FlashCards.Core
 			{
 				case (int)QuestionStateMachine.QuestionState.AskingQuestion:
 					{
-						//TODO: dim the music
-
 						//play the sound that asks the question
 						PlaySoundEffect(QuestionSoundEffect);
 					}
@@ -348,7 +348,7 @@ namespace FlashCards.Core
 			if (null != soundEffect)
 			{
 				QuestionStateMachine.StartTimer((float)soundEffect.Duration.TotalSeconds + pause);
-				soundEffect.Play();
+				soundEffect.Play(SoundVolume, 0f, 0f);
 			}
 		}
 

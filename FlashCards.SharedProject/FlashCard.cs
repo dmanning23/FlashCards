@@ -108,7 +108,7 @@ namespace FlashCards.Core
 			{
 				if (translation.Language == "English")
 				{
-					englishWord = translation.Word;
+					englishWord = translation.CleanWord;
 					break;
 				}
 			}
@@ -124,6 +124,20 @@ namespace FlashCards.Core
 		public string OtherLanguage(string language)
 		{
 			return (language == Language1) ? Language2 : Language1;
+		}
+
+		public string CleanWord()
+		{
+			foreach (var translation in Translations)
+			{
+				if (translation.Language == "English")
+				{
+					return translation.CleanWord;
+				}
+			}
+
+			//should never get here
+			return string.Empty;
 		}
 
 		#endregion //Methods

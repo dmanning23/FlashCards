@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 
 namespace FlashCards.Core
@@ -19,6 +20,8 @@ namespace FlashCards.Core
 		/// The translated word of this language
 		/// </summary>
 		public string Word { get; set; }
+
+		public string CleanWord => new string (Word.Where(c => !char.IsPunctuation(c)).ToArray());
 
 		#endregion //Properties
 

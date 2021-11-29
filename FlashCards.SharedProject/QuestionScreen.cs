@@ -98,6 +98,8 @@ namespace FlashCards.Core
 
 		public float SoundVolume { get; set; } = 1f;
 
+		ContentManager soundContent;
+
 		#endregion //Properties
 
 		#region Initialization
@@ -238,9 +240,10 @@ namespace FlashCards.Core
 			}
 
 			//Try to load the sound effects
+			soundContent = new ContentManager(ScreenManager.Game.Services, "Content");
 			try
 			{
-				QuestionSoundEffect = Content.Load<SoundEffect>($"TTS//{correctAnswer.Language}Question");
+				QuestionSoundEffect = soundContent.Load<SoundEffect>($"TTS/{correctAnswer.Language}Question");
 			}
 			catch (Exception ex)
 			{
@@ -250,7 +253,7 @@ namespace FlashCards.Core
 			//load the correct answer sound effect
 			try
 			{
-				QuestionWordSoundEffect = CorrectQuestion.LoadSoundEffect(correctQuestion.OtherLanguage(correctAnswer.Language), Content);
+				QuestionWordSoundEffect = CorrectQuestion.LoadSoundEffect(correctQuestion.OtherLanguage(correctAnswer.Language), soundContent);
 			}
 			catch (Exception ex)
 			{
@@ -262,7 +265,7 @@ namespace FlashCards.Core
 			{
 				try
 				{
-					Entries[i].LoadSoundEffect(correctAnswer.Language, Content);
+					Entries[i].LoadSoundEffect(correctAnswer.Language, soundContent);
 				}
 				catch (Exception ex)
 				{
@@ -273,6 +276,18 @@ namespace FlashCards.Core
 			QuestionStateMachine = new QuestionStateMachine();
 			QuestionStateMachine.StartTimer(Transition.OnTime + 0.1f);
 			QuestionStateMachine.StateChangedEvent += QuestionStateMachine_StateChangedEvent;
+		}
+
+		public override void UnloadContent()
+		{
+			base.UnloadContent();
+
+			if (null != soundContent)
+			{
+				soundContent.Unload();
+				soundContent.Dispose();
+				soundContent = null;
+			}
 		}
 
 		private void QuestionStateMachine_StateChangedEvent(object sender, StateMachineBuddy.StateChangeEventArgs e)

@@ -282,6 +282,11 @@ namespace FlashCards.Core
 		{
 			base.UnloadContent();
 
+			if (null != OverlayScreen)
+			{
+				OverlayScreen.ExitScreen();
+			}
+
 			if (null != soundContent)
 			{
 				soundContent.Unload();

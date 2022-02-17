@@ -78,6 +78,7 @@ namespace FlashCards.Core
 		public void GetQuestion(out FlashCard questionCard, out Translation correctTranslation, out List<FlashCard> wrongQuestionCards, out List<Translation> wrongTranslations)
 		{
 			//grab a random flash card to be the question
+			questionRand.MaxNum = Cards.Count - 1;
 			var cardIndex = questionRand.Next();
 			questionCard = Cards[cardIndex];
 
